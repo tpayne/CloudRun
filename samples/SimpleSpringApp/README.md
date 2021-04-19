@@ -122,7 +122,7 @@ The following references might be of interest...
 - https://www.eclipse.org/jkube/docs/kubernetes-maven-plugin#enrichers
 - https://spring.io/guides/gs/spring-boot-kubernetes/
 - https://spring.io/why-spring
-- https://rohaan.medium.com/deploy-any-spring-boot-application-into-kubernetes-using-eclipse-jkube-a4167d27ee45
-
+- https://cloud.google.com/run
+- https://spring.io/guides/gs/spring-boot-docker/
 
 [run_button_auto]: https://deploy.cloud.run/?git_repo=https://github.com/tpayne/CloudRun&dir=samples/SimpleSpringApp
