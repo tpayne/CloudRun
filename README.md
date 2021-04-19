@@ -8,7 +8,8 @@ cold start times.
 
 Samples
 -------
-The following samples are provided.
+The following samples are provided. You can use the `Run on Cloud` button to build and deploy the
+samples directly to GCP.
 
 |           Sample                |        Description       |     Deploy    |
 | ------------------------------- | ------------------------ | ------------- |
