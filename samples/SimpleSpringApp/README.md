@@ -106,7 +106,8 @@ To clean up the app, you can do...
 
     % mvn clean 
     % gcloud run services list --platform managed
-    # Use the service name listed above to delete the one you want
+    # Use the appropriate service name from above to delete the one you want.
+    # The name will depend on the deployment method used.
     # The delete statement below uses "web8k-example" as the name...
     % gcloud run services delete web8k-example --platform managed
     % docker image rm -f gcr.io/$(gcloud config get-value project)/web8k-example 
