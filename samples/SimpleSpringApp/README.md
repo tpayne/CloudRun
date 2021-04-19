@@ -13,7 +13,8 @@ Before you attempt this example, please ensure you have done the following: -
 
 Fully Automated Build/Deploy
 ----------------------------
-To do a fully automated build and deploy, press the button below.
+To do a fully automated build and deploy, press the button below. This will run the process directly on
+GCP - although you will need to answer some questions.
 
 [<img src="https://storage.googleapis.com/cloudrun/button.svg" alt="Run on Google Cloud" height="30">][run_button_auto]
 
