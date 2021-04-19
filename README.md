@@ -6,6 +6,10 @@ Very crudely, Cloud Run are hosted images that act as services based on runtime 
 Springboot. These services are cheaper to run than Cloud Functions and are able to provide faster
 cold start times.
 
+Build Status
+------------
+[![Java CI with Maven](https://github.com/tpayne/CloudRun/actions/workflows/maven.yml/badge.svg)](https://github.com/tpayne/CloudRun/actions/workflows/maven.yml)
+
 Samples
 -------
 The following samples are provided. You can use the `Run on Cloud` button to build and deploy the
