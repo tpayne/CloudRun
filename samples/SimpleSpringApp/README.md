@@ -103,7 +103,8 @@ Clean Up
 --------
 To clean up the app, you can do...
 
-    % mvn clean jib:clean -Dgcp.projectId=$(gcloud config get-value project)
+    % mvn clean jib:clean \
+        -Dgcp.projectId=$(gcloud config get-value project)
     % gcloud run services list --platform managed
     % gcloud run services delete web8k-example --platform managed
     % docker image rm -f gcr.io/$(gcloud config get-value project)/web8k-example 
