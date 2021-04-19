@@ -1,3 +1,6 @@
+# This is a docker make file for building this Maven app
+# and putting it into a docker image...
+
 FROM maven:3.8-jdk-11 as imagebuilder
 
 WORKDIR /app

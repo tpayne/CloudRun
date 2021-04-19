@@ -11,8 +11,8 @@ Before you attempt this example, please ensure you have done the following: -
 - Logged into a terminal window that will allow you to do deployments to a valid K8 cluster
 - Have your Kubernetes context set to a system you have permission to deploy to
 
-Build Instructions
-------------------
+Build Instructions on Local Machine
+-----------------------------------
 To run this sample do the following.
 
 First, find out your current GCP project...
@@ -34,12 +34,19 @@ Docker image or run the app directly using...
     % curl localhost:8080/cmd/version
     <h2>Version 1.0</h2>
 
+Build Instructions using Docker
+-------------------------------
+You can also build this sample using Docker. To do this, run the following...
+
+    % docker build . [-t gcr.io/$(gcloud config get-value project)/web8k-example:1.0]
+
+This will compile and package the Docker image purely using Docker.
+
 Testing the App
 ---------------
-
 You can then run it locally with the Docker image, you can...
 
-    % docker run -p 8080:8080 gcr.io/investdemo-300915/web8k-example
+    % docker run -p 8080:8080 gcr.io/$(gcloud config get-value project)/web8k-example
       .   ____          _            __ _ _
      /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
     ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
@@ -92,7 +99,7 @@ To clean up the app, you can do...
     % mvn clean jib:clean -Dgcp.projectId=$(gcloud config get-value project)
     % gcloud run services delete web8k-example
     % docker image rm -f gcr.io/$(gcloud config get-value project)/web8k-example
-    
+
 
 References
 ----------
