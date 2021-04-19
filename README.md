@@ -1,4 +1,5 @@
-# CloudRun
+CloudRun
+--------
 This repository provides various example applications which can be deployed to GCP Cloud Run.
 
 |           Sample                |        Description       |     Deploy    |
