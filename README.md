@@ -1,5 +1,5 @@
 # CloudRun
-Examples GCP Cloud Run samples
+This repository provides various example applications which can be deployed to GCP Cloud Run.
 
 |           Sample                |        Description       |     Deploy    |
 | ------------------------------- | ------------------------ | ------------- |
@@ -7,3 +7,4 @@ Examples GCP Cloud Run samples
 
 
 [run_button_simplespringapp]: https://deploy.cloud.run/?git_repo=https://github.com/tpayne/CloudRun&dir=samples/SimpleSpringApp
+
