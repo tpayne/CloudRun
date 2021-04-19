@@ -19,7 +19,7 @@ To do a fully automated build and deploy, press the button below.
 
 Build Instructions on Local Machine
 -----------------------------------
-To run this sample do the following.
+To run this sample on your local machine do the following.
 
 First, find out your current GCP project...
 
@@ -50,7 +50,8 @@ This will compile and package the Docker image purely using Docker.
 
 Testing the App
 ---------------
-You can then run it locally with the Docker image, you can...
+Once you have built the image, you can then run it locally via the Docker image as shown
+below...
 
     % docker run -p 8080:8080 gcr.io/$(gcloud config get-value project)/web8k-example
       .   ____          _            __ _ _
@@ -106,6 +107,8 @@ To clean up the app, you can do...
     % mvn clean jib:clean \
         -Dgcp.projectId=$(gcloud config get-value project)
     % gcloud run services list --platform managed
+    # Use the service name listed above to delete the one you want
+    # The delete statement below uses "web8k-example" as the name...
     % gcloud run services delete web8k-example --platform managed
     % docker image rm -f gcr.io/$(gcloud config get-value project)/web8k-example 
 
