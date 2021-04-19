@@ -15,7 +15,7 @@ Fully Automated Build/Deploy
 ----------------------------
 To do a fully automated build and deploy, press the button below.
 
-[<img src="https://storage.googleapis.com/cloudrun/button.svg" alt="Run on Google Cloud" height="15">][run_button_auto]
+[<img src="https://storage.googleapis.com/cloudrun/button.svg" alt="Run on Google Cloud" height="30">][run_button_auto]
 
 Build Instructions on Local Machine
 -----------------------------------
