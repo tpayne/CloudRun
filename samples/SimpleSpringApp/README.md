@@ -104,8 +104,7 @@ Clean Up
 --------
 To clean up the app, you can do...
 
-    % mvn clean jib:clean \
-        -Dgcp.projectId=$(gcloud config get-value project)
+    % mvn clean 
     % gcloud run services list --platform managed
     # Use the service name listed above to delete the one you want
     # The delete statement below uses "web8k-example" as the name...
