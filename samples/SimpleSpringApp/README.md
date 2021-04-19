@@ -11,6 +11,12 @@ Before you attempt this example, please ensure you have done the following: -
 - Logged into a terminal window that will allow you to do deployments to a valid K8 cluster
 - Have your Kubernetes context set to a system you have permission to deploy to
 
+Fully Automated Build/Deploy
+----------------------------
+To do a fully automated build and deploy, press the button below.
+
+[<img src="https://storage.googleapis.com/cloudrun/button.svg" alt="Run on Google Cloud" height="15">][run_button_auto]
+
 Build Instructions on Local Machine
 -----------------------------------
 To run this sample do the following.
@@ -84,11 +90,12 @@ Deploying the App to CloudRun
 To deploy the app to CloudRun, you can do...
 
     % mvn clean compile jib:build -Dgcp.projectId=$(gcloud config get-value project)
-    % gcloud run deploy --image gcr.io/$(gcloud config get-value project)/web8k-example
+    % gcloud run deploy --image gcr.io/$(gcloud config get-value project)/web8k-example --platform managed
     Deploying container to Cloud Run service [web8k-example] in project [investdemo-300915] region [europe-west1]
     ... 
     Service [web8k-example] revision [web8k-example-00001-roj] has been deployed and is serving 100 percent of traffic.
     Service URL: https://web8k-example-r2aphpfqba-ew.a.run.app
+    % gcloud run services list --platform managed
     % curl https://web8k-example-r2aphpfqba-ew.a.run.app/cmd/version
     <h2>Version 1.0</h2>
 
@@ -97,8 +104,9 @@ Clean Up
 To clean up the app, you can do...
 
     % mvn clean jib:clean -Dgcp.projectId=$(gcloud config get-value project)
-    % gcloud run services delete web8k-example
-    % docker image rm -f gcr.io/$(gcloud config get-value project)/web8k-example
+    % gcloud run services list --platform managed
+    % gcloud run services delete web8k-example --platform managed
+    % docker image rm -f gcr.io/$(gcloud config get-value project)/web8k-example 
 
 
 References
@@ -110,3 +118,6 @@ The following references might be of interest...
 - https://spring.io/guides/gs/spring-boot-kubernetes/
 - https://spring.io/why-spring
 - https://rohaan.medium.com/deploy-any-spring-boot-application-into-kubernetes-using-eclipse-jkube-a4167d27ee45
+
+
+[run_button_auto]: https://deploy.cloud.run/?git_repo=https://github.com/tpayne/CloudRun&dir=run/samples/SimpleSpringApp
