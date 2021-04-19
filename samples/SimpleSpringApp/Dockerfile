@@ -1,0 +1,18 @@
+FROM maven:3.8-jdk-11 as imagebuilder
+
+WORKDIR /app
+COPY pom.xml .
+COPY src ./src
+
+RUN mvn package 
+
+FROM adoptopenjdk/openjdk11:alpine-slim
+RUN addgroup -S spring && adduser -S spring -G spring
+USER spring:spring
+
+ARG JAR_FILE=/app/target/web8k-example-1.0-SNAPSHOT.jar
+COPY --from=imagebuilder ${JAR_FILE} /web8k-example-1.0-SNAPSHOT.jar
+
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","web8k-example-1.0-SNAPSHOT.jar","application.Webk8App"]
+EXPOSE 8080
+EXPOSE 80
