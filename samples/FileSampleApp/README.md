@@ -4,7 +4,8 @@ CloudRun Sample
 This is a Maven project for building and deploying a (very) small custom spring application for running
 on Cloud Run
 
-This code has been adapted from [here](https://bezkoder.com/spring-boot-file-upload/).
+This code has been adapted from [here](https://bezkoder.com/spring-boot-file-upload/), although it has
+been modified to work slightly better and resolve some error cases not covered in the original.
 
 Dependencies
 ------------
