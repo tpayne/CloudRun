@@ -18,6 +18,7 @@ samples directly to GCP.
 |           Sample                |        Description       |     Deploy    |
 | ------------------------------- | ------------------------ | ------------- |
 |[samples/SimpleSpringApp](samples/SimpleSpringApp/) | A simple SpringApp sample | [<img src="https://storage.googleapis.com/cloudrun/button.svg" alt="Run on Google Cloud" height="30">][run_button_simplespringapp] |
+|[samples/FileSampleApp](samples/FileSampleApp/) | A simple File loading sample | [<img src="https://storage.googleapis.com/cloudrun/button.svg" alt="Run on Google Cloud" height="30">][run_button_filesampleapp] |
 
 Notes
 -----
@@ -30,4 +31,4 @@ The following are additional Cloud Run samples and documentation
 - https://cloud.google.com/run/docs/how-to
 
 [run_button_simplespringapp]: https://deploy.cloud.run/?git_repo=https://github.com/tpayne/CloudRun&dir=samples/SimpleSpringApp
-
+[run_button_filesampleapp]: https://deploy.cloud.run/?git_repo=https://github.com/tpayne/CloudRun&dir=samples/FileSampleApp
