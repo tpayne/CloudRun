@@ -21,6 +21,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
 import java.nio.file.FileAlreadyExistsException;
+import java.io.File;
 
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -54,6 +55,9 @@ public class FileServiceImpl implements FileService {
     @Override
     public void save(MultipartFile file) {
         try {
+            if (file.isEmpty()) {
+                throw new RuntimeException("Selected file is empty or a directory");
+            }
             Files.copy(file.getInputStream(), this.root.resolve(file.getOriginalFilename()));
         } catch (FileAlreadyExistsException e) {
             throw new RuntimeException("The file specified already exists on the server");

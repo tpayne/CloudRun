@@ -16,6 +16,11 @@ package samples.cloudrun.FileApp.controller;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.io.File;
+import java.text.SimpleDateFormat;
+
+import java.util.logging.Logger;
+import java.util.logging.Level;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -39,6 +44,8 @@ import samples.cloudrun.FileApp.service.FileService;
 @Controller
 public class FileServiceController {
 
+    private static final Logger LOGGER = Logger.getLogger(FileServiceController.class.getName());
+
     @Autowired
     FileService fileService;
 
@@ -59,9 +66,10 @@ public class FileServiceController {
     @GetMapping("/files")
     public ResponseEntity<List<FileData>> getListFiles() {
         List<FileData> FileDatas = fileService.loadAll().map(path -> {
-            String filename = path.getFileName().toString();
+            String filename = path.getFileName().toString();            
             String url = MvcUriComponentsBuilder
-            .fromMethodName(FileServiceController.class, "getFile", path.getFileName().toString()).build().toString();
+                    .fromMethodName(FileServiceController.class, "getFile", 
+                                    path.getFileName().toString()).build().toString();
 
             return new FileData(filename, url);
         }).collect(Collectors.toList());
