@@ -3,7 +3,7 @@ CloudRun
 This repository provides various example applications which can be deployed to GCP Cloud Run.
 
 Very crudely, Cloud Run are hosted containers that act as services based on runtime images like
-Springboot. These services are cheaper to run than Cloud Functions and are able to provide faster
+Springboot. These services are cheaper to run than [Cloud Functions](https://github.com/tpayne/CloudFunctions) and are able to provide faster
 cold start times.
 
 Build Status
