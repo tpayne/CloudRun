@@ -25,7 +25,7 @@ samples directly to GCP - assuming you have an account setup to use GCP!
 Cloud Functions vrs CloudRun
 ----------------------------
 Which one to use? Well, that is essentially up to the scenario you are coding for. They both achieve
-the same function, but do it in slightly different ways.
+the same functionally, but do it in slightly different ways.
 
 Generally, I would suggest using Cloud Run for REST and HTTP/S service endpoints and using Cloud Functions
 for event based operations. There is a fairly long discussion about which approach to use [here](https://medium.com/google-cloud/cloud-run-and-cloud-function-what-i-use-and-why-12bb5d3798e1).
