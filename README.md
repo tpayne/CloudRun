@@ -5,7 +5,7 @@ This repository provides various example applications which can be deployed to G
 Very crudely, Cloud Run are hosted containers that act as services based on runtime images like
 Springboot. These services are cheaper to run than [Cloud Functions](https://github.com/tpayne/CloudFunctions) and are able to provide faster cold start times.
 
-These sample assume you have a basic understanding of GCP, hosted compute services and Docker.
+These samples assume you have a basic understanding of GCP, hosted compute services and Docker.
 
 Build Status
 ------------
