@@ -8,6 +8,7 @@ Dependencies
 ------------
 Before you attempt this example, please ensure you have done the following: -
 - That you have installed Maven (mvn) and - optionally - GCP cloud cli (gcloud)
+- You have logged into a (Unix) terminal window that will allow you to do deployments to a valid GCP account
 
 Fully Automated Build/Deploy
 ----------------------------
