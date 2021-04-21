@@ -1,8 +1,7 @@
 CloudRun Sample
 ===============
 
-This is a Maven project for building and deploying a (very) small custom spring application for running
-on Cloud Run
+This is a Maven project for building and deploying a (very) small custom spring application on Cloud Run
 
 This code has been adapted from [here](https://bezkoder.com/spring-boot-file-upload/), although it has
 been modified to work slightly better and resolve some error cases not covered in the original.
@@ -11,8 +10,6 @@ Dependencies
 ------------
 Before you attempt this example, please ensure you have done the following: -
 - That you have installed Maven (mvn) and - optionally - GCP cloud cli (gcloud)
-- Logged into a terminal window that will allow you to do deployments to a valid K8 cluster
-- Have your Kubernetes context set to a system you have permission to deploy to
 
 Fully Automated Build/Deploy
 ----------------------------
