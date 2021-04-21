@@ -1,8 +1,8 @@
 StorageGCS Sample
 =================
 
-This is a Maven project for building and deploying a (very) small custom spring application for running
-on Cloud Run that uses GCP Storage GCS.
+This is a Maven project for building and deploying a (very) small custom spring application on 
+Cloud Run that uses GCP Storage GCS.
 
 Dependencies
 ------------
