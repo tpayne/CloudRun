@@ -22,6 +22,17 @@ samples directly to GCP - assuming you have an account setup to use GCP!
 |[samples/SimpleSpringApp](samples/SimpleSpringApp/) | A simple SpringApp sample | [<img src="https://storage.googleapis.com/cloudrun/button.svg" alt="Run on Google Cloud" height="30">][run_button_simplespringapp] |
 |[samples/StorageGCSSample](samples/StorageGCSSample/) | A simple GCS storage sample | [<img src="https://storage.googleapis.com/cloudrun/button.svg" alt="Run on Google Cloud" height="30">][run_button_gcssample] |
 
+Cloud Functions vrs CloudRun
+----------------------------
+Which one to use? Well, that is essentially up to the scenario you are coding for. They both achieve
+the same function, but do it in slightly different ways.
+
+Generally, I would suggest using Cloud Run for REST and HTTP/S service endpoints and using Cloud Functions
+for event based operations. There is a fairly long discussion about which approach to use [here](https://medium.com/google-cloud/cloud-run-and-cloud-function-what-i-use-and-why-12bb5d3798e1).
+
+One of the challenges with the public cloud providers is that there is always multiple ways of doing
+the samething. You have to choose the one that best serves the problem you are trying to solve.
+
 Notes
 -----
 The following are additional Cloud Run samples and documentation
