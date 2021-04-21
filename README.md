@@ -7,6 +7,12 @@ Springboot. These services are cheaper to run than [Cloud Functions](https://git
 
 These samples assume you have a basic understanding of GCP, hosted compute services and Docker.
 
+Status
+------
+````
+Cloud Run Status: Ready for use
+````
+
 Build Status
 ------------
 [![Java CI with Maven](https://github.com/tpayne/CloudRun/actions/workflows/maven.yml/badge.svg)](https://github.com/tpayne/CloudRun/actions/workflows/maven.yml)
