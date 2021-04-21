@@ -13,7 +13,7 @@ Build Status
 Samples
 -------
 The following samples are provided. You can use the `Run on Cloud` button to build and deploy the
-samples directly to GCP.
+samples directly to GCP - assuming you have an account setup to use GCP!
 
 |           Sample                |        Description       |     Deploy    |
 | ------------------------------- | ------------------------ | ------------- |
