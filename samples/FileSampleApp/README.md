@@ -4,6 +4,9 @@ CloudRun Sample
 This is a Maven project for building and deploying a (very) small custom spring application for running
 on Cloud Run
 
+This code has been adapted from [here](https://bezkoder.com/spring-boot-file-upload/), although it has
+been modified to work slightly better and resolve some error cases not covered in the original.
+
 Dependencies
 ------------
 Before you attempt this example, please ensure you have done the following: -
@@ -38,8 +41,6 @@ If you wish to test (or change the app) on your local system, then you can eithe
 Docker image or run the app directly using...
 
     % mvn clean package spring-boot:run
-    % curl localhost:8080/cmd/version
-    <h2>Version 1.0</h2>
 
 Build Instructions using Docker
 -------------------------------
@@ -83,7 +84,7 @@ To test the app, do...
     % curl http://localhost:8080/files/f.txt
     ...
 
-The contents of the file `f.txt` will be displaid.
+The contents of the file 'f.txt' will be displaid.
 
 Deploying the App to CloudRun
 -----------------------------
@@ -110,7 +111,6 @@ To clean up the app, you can do...
     # The delete statement below uses "samplescloudrun-fileapp" as the name...
     % gcloud run services delete samplescloudrun-fileapp --platform managed
     % docker image rm -f gcr.io/$(gcloud config get-value project)/samples.cloudrun-fileapp:1.0
-
 
 References
 ----------
