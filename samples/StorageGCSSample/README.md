@@ -140,6 +140,7 @@ The following references might be of interest...
 - https://cloud.google.com/storage/docs/listing-buckets#gsutil
 - https://cloud.google.com/storage/docs/samples/storage-create-bucket
 - https://googleapis.dev/java/google-cloud-storage/latest/index.html
+- https://cloud.google.com/storage/docs/json_api/v1/
 
 
 [run_button_auto]: https://deploy.cloud.run/?git_repo=https://github.com/tpayne/CloudRun&dir=samples/StorageGCSSample
