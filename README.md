@@ -33,6 +33,14 @@ The following are additional Cloud Run samples and documentation
 - https://cloud.google.com/run/docs/how-to
 - https://docs.spring.io/spring-framework/docs/4.3.1.RELEASE/javadoc-api/index.html?overview-summary.html
 
+Liability Warning
+-----------------
+The contents of this repository (documents and examples) are provided “as-is” with no warrantee implied 
+or otherwise about the accuracy or functionality of the examples.
+
+You use them at your own risk. If anything results to your machine or environment or anything else as a 
+result of ignoring this warning, then the fault is yours only and has nothing to do with me.
+
 [run_button_simplespringapp]: https://deploy.cloud.run/?git_repo=https://github.com/tpayne/CloudRun&dir=samples/SimpleSpringApp
 [run_button_filesampleapp]: https://deploy.cloud.run/?git_repo=https://github.com/tpayne/CloudRun&dir=samples/FileSampleApp
 [run_button_gcssample]: https://deploy.cloud.run/?git_repo=https://github.com/tpayne/CloudRun&dir=samples/StorageGCSSample
