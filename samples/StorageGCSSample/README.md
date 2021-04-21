@@ -137,5 +137,9 @@ The following references might be of interest...
 - https://spring.io/why-spring
 - https://cloud.google.com/run
 - https://spring.io/guides/gs/spring-boot-docker/
+- https://cloud.google.com/storage/docs/listing-buckets#gsutil
+- https://cloud.google.com/storage/docs/samples/storage-create-bucket
+- https://googleapis.dev/java/google-cloud-storage/latest/index.html
+
 
 [run_button_auto]: https://deploy.cloud.run/?git_repo=https://github.com/tpayne/CloudRun&dir=samples/StorageGCSSample
