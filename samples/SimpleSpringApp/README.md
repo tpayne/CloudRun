@@ -54,7 +54,7 @@ Testing the App
 Once you have built the image, you can then run it locally via the Docker image as shown
 below...
 
-    % docker run -p 8080:8080 gcr.io/$(gcloud config get-value project)/web8k-example
+    % docker run -p 8080:8080 gcr.io/$(gcloud config get-value project)/web8k-example:1.0
       .   ____          _            __ _ _
      /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
     ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
