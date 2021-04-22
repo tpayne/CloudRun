@@ -20,6 +20,7 @@ samples directly to GCP.
 |[samples/FileSampleApp](samples/FileSampleApp/) | A simple File loading sample | [<img src="https://storage.googleapis.com/cloudrun/button.svg" alt="Run on Google Cloud" height="30">][run_button_filesampleapp] |
 |[samples/SimpleSpringApp](samples/SimpleSpringApp/) | A simple SpringApp sample | [<img src="https://storage.googleapis.com/cloudrun/button.svg" alt="Run on Google Cloud" height="30">][run_button_simplespringapp] |
 |[samples/StorageGCSSample](samples/StorageGCSSample/) | A simple GCS storage sample | [<img src="https://storage.googleapis.com/cloudrun/button.svg" alt="Run on Google Cloud" height="30">][run_button_gcssample] |
+|[samples/GCESample](samples/GCESample/) | A simple GCE compute sample | [<img src="https://storage.googleapis.com/cloudrun/button.svg" alt="Run on Google Cloud" height="30">][run_button_gcesample] |
 
 Notes
 -----
@@ -34,3 +35,4 @@ The following are additional Cloud Run samples and documentation
 [run_button_simplespringapp]: https://deploy.cloud.run/?git_repo=https://github.com/tpayne/CloudRun&dir=samples/SimpleSpringApp
 [run_button_filesampleapp]: https://deploy.cloud.run/?git_repo=https://github.com/tpayne/CloudRun&dir=samples/FileSampleApp
 [run_button_gcssample]: https://deploy.cloud.run/?git_repo=https://github.com/tpayne/CloudRun&dir=samples/StorageGCSSample
+[run_button_gcesample]: https://deploy.cloud.run/?git_repo=https://github.com/tpayne/CloudRun&dir=samples/GCESample
