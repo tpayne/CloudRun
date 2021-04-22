@@ -1,13 +1,14 @@
 StorageGCS Sample
 =================
 
-This is a Maven project for building and deploying a (very) small custom spring application for running
-on Cloud Run that uses GCP Storage GCS.
+This is a Maven project for building and deploying a (very) small custom spring application on 
+Cloud Run that uses GCP Storage GCS.
 
 Dependencies
 ------------
 Before you attempt this example, please ensure you have done the following: -
 - That you have installed Maven (mvn) and - optionally - GCP cloud cli (gcloud)
+- You have logged into a (Unix) terminal window that will allow you to do deployments to a valid GCP account
 
 Fully Automated Build/Deploy
 ----------------------------
@@ -137,5 +138,10 @@ The following references might be of interest...
 - https://spring.io/why-spring
 - https://cloud.google.com/run
 - https://spring.io/guides/gs/spring-boot-docker/
+- https://cloud.google.com/storage/docs/listing-buckets#gsutil
+- https://cloud.google.com/storage/docs/samples/storage-create-bucket
+- https://googleapis.dev/java/google-cloud-storage/latest/index.html
+- https://cloud.google.com/storage/docs/json_api/v1/
+
 
 [run_button_auto]: https://deploy.cloud.run/?git_repo=https://github.com/tpayne/CloudRun&dir=samples/StorageGCSSample

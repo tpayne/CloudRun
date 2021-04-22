@@ -8,8 +8,7 @@ Dependencies
 ------------
 Before you attempt this example, please ensure you have done the following: -
 - That you have installed Maven (mvn) and - optionally - GCP cloud cli (gcloud)
-- Logged into a terminal window that will allow you to do deployments to a valid K8 cluster
-- Have your Kubernetes context set to a system you have permission to deploy to
+- You have logged into a (Unix) terminal window that will allow you to do deployments to a valid GCP account
 
 Fully Automated Build/Deploy
 ----------------------------
