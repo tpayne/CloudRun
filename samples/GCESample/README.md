@@ -2,7 +2,7 @@ GCE Compute Sample
 ===================
 
 This is a Maven project for building and deploying a (very) small custom spring application for running
-on Cloud Run that uses GCP GCE Compute services. It will allow to create and delete VM instances.
+on Cloud Run that uses GCP GCE Compute services. It will allow you to create and delete VM instances.
 
 Dependencies
 ------------
