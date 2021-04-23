@@ -151,11 +151,11 @@ Delete functions...
     {"List of created instances":{}}
 
 The following RESTful calls are supported...
-- compute/create - POST JSON call for creating VM instances
-- compute/delete - POST JSON call for deleting VM instances
-- compute/list - GET call for viewing created instances
-- compute/describe - GET call for viewing details of specific instance
-- compute/listAll - GET call for viewing details of all instances
+- /compute/create - POST JSON call for creating VM instances
+- /compute/delete - POST JSON call for deleting VM instances
+- /compute/list - GET call for viewing created instances
+- /compute/describe - GET call for viewing details of specific instance
+- /compute/listAll - GET call for viewing details of all instances
 
 All results are returned in JSON.
 
