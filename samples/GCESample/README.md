@@ -4,6 +4,10 @@ GCE Compute Sample
 This is a Maven project for building and deploying a (very) small custom spring application for running
 on Cloud Run that uses GCP GCE Compute services. It will allow you to create and delete VM instances.
 
+Note - The output from these functions is in raw JSON as they are intended for client apps, not humans to view.
+If you wish to make the output human readable, that is left as an action for the reader to do. It is doable
+with functions like `toPrettyString()` on JSON slurpers etc.
+
 Dependencies
 ------------
 Before you attempt this example, please ensure you have done the following: -
