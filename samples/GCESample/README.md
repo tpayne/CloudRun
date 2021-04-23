@@ -158,14 +158,16 @@ Delete functions...
 The following RESTful calls are supported...
 - /compute/create - POST JSON call for creating VM instances
 - /compute/delete - POST JSON call for deleting VM instances
+- /compute/[projectId]/[zone]/[instanceName] - DELETE call for deleting VM instances
 - /compute/list - GET call for viewing created instances
 - /compute/describe - GET call for viewing details of specific instance
 - /compute/describe/[projectId]/[zone]/[instanceName] - GET call for viewing details of specific instance
 - /compute/listAll - GET call for viewing details of all instances
 - /compute/listAll/[projectId]/[zone] - GET call for viewing details of all instances
-- /compute/[projectId]/[zone]/[instanceName] - DELETE xall for deleting VM instances
 
 All results are returned in JSON.
+
+(Note - The above may not comply to RESTful standards they are primarily shown as examples of how to do it).
 
 Clean Up
 --------
