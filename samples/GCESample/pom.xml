@@ -20,6 +20,7 @@
     <gcp.projectId>defaultGCPProjectId</gcp.projectId>
     <project.compute.version>v1-rev20210327-1.31.0</project.compute.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <dependency-check-maven.version>5.3.0</dependency-check-maven.version>
   </properties>
 
   <dependencies>
@@ -55,6 +56,47 @@
       </exclusions>
     </dependency> 
   </dependencies>
+
+  <!--  To run a security/vulnerability check run 'mvn clean install -Psecruity-scans' 
+        The process will take about 5-15 mins to run, so do not do it as part of normal build
+        
+        For more info, see 
+        https://itnext.io/owasp-dependency-check-maven-vulnerabilities-java-898a9cf99f5e
+  -->
+  <profiles>
+    <profile>
+      <id>secruity-scans</id>
+      <build>
+        <plugins>
+          <!-- Security scanners -->
+          <plugin>
+            <groupId>com.sonatype.clm</groupId>
+            <artifactId>clm-maven-plugin</artifactId>
+            <version>2.7.0-01</version>
+            <executions>
+              <execution>
+                <goals>
+                <goal>index</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>        
+          <plugin>
+            <groupId>org.owasp</groupId>
+            <artifactId>dependency-check-maven</artifactId>
+            <version>${dependency-check-maven.version}</version>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>check</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 
   <build>
     <sourceDirectory>src</sourceDirectory>
@@ -115,7 +157,6 @@
           </to>
         </configuration>
       </plugin>
-
       <plugin>
         <groupId>org.eclipse.jkube</groupId>
         <artifactId>openshift-maven-plugin</artifactId>
