@@ -85,6 +85,11 @@ To test using POST and GET methods, you can do...
     % curl http://localhost:8080/user/list
     <p><b>The following users are registered...</b><br><ol><li>james bailey</li><ol></p>
 
+The following RESTful calls are supported...
+- /user/create - POST JSON call for creating users in a local cache
+- /user/list - GET call for listing users from local cache
+
+All results are returned in pseudo HTML.
 
 Deploying the App to CloudRun
 -----------------------------
