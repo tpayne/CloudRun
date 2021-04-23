@@ -84,6 +84,11 @@ To test the app, do...
 
 The contents of the file 'f.txt' will be displaid.
 
+The following RESTful calls are supported...
+- upload - For uploading files
+- files - For listing files
+- files/[filename] - For viewing files
+
 Deploying the App to CloudRun
 -----------------------------
 To deploy the app to CloudRun, you can do...
