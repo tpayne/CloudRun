@@ -57,7 +57,7 @@
     </dependency> 
   </dependencies>
 
-  <!--  To run a security/vulnerability check run 'mvn clean install -Psecruity-scans' 
+  <!--  To run a security/vulnerability check run 'mvn clean install -Psecurity-scans' 
         The process will take about 5-15 mins to run, so do not do it as part of normal build
         
         For more info, see 
@@ -65,7 +65,7 @@
   -->
   <profiles>
     <profile>
-      <id>secruity-scans</id>
+      <id>security-scans</id>
       <build>
         <plugins>
           <!-- Security scanners -->
