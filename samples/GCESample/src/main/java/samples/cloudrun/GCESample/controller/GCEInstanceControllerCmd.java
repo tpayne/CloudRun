@@ -68,6 +68,15 @@ public class GCEInstanceControllerCmd {
         return response;
     } 
 
+    @GetMapping("/describe/{projectId:.+}/{zone:.+}/{instanceName:.+}")
+    public Map<String,Object> describeInstanceURL(@PathVariable String projectId, 
+                                               @PathVariable String zone,
+                                               @PathVariable String instanceName) {    
+        Map<String,Object> response = new HashMap<String, Object>();
+        response.put("Instance:", cmd.describeInstance(projectId,zone,instanceName));
+        return response;
+    } 
+
     @GetMapping("/describe")
     public Map<String,Object> describeInstance(@RequestParam String projectId, 
                                                @RequestParam String zone,
@@ -77,9 +86,17 @@ public class GCEInstanceControllerCmd {
         return response;
     } 
 
+    @GetMapping("/listAll/{projectId:.+}/{zone:.+}")
+    public Map<String,List<Object>> listAllURL(@PathVariable String projectId, 
+                                               @PathVariable String zone) {
+        Map<String,List<Object>> response = new HashMap<String, List<Object>>();
+        response.put("List of all instances", cmd.listInstances(projectId,zone));
+        return response;
+    }
+
     @GetMapping("/listAll")
     public Map<String,List<Object>> listAll(@RequestParam String projectId, 
-                                      @RequestParam String zone) {
+                                            @RequestParam String zone) {
         Map<String,List<Object>> response = new HashMap<String, List<Object>>();
         response.put("List of all instances", cmd.listInstances(projectId,zone));
         return response;
