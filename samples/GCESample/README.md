@@ -80,7 +80,6 @@ below...
     2021-04-22 15:57:26.934  INFO 1 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
     2021-04-22 15:57:26.945  INFO 1 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 11 ms
 
-
     % curl localhost:8080/compute/version
     <h2>Version 1.0</h2>
     % curl localhost:8080/compute/list
@@ -150,6 +149,15 @@ Delete functions...
     {"message":"Instance deleted successfully"}
     % curl https://samplescloudrun-gcesample-r2aphpfqba-uc.a.run.app/compute/list
     {"List of created instances":{}}
+
+The following RESTful calls are supported...
+- compute/create - POST JSON call for creating VM instances
+- compute/delete - POST JSON call for deleting VM instances
+- compute/list - GET call for viewing created instances
+- compute/describe - GET call for viewing details of specific instance
+- compute/listAll - GET call for viewing details of all instances
+
+All results are returned in JSON.
 
 Clean Up
 --------
