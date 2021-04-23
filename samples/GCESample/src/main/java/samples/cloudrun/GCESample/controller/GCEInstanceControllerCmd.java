@@ -63,6 +63,15 @@ public class GCEInstanceControllerCmd {
         return response;
     } 
 
+    @GetMapping("/describe")
+    public Map<String,Object> describeInstance(@RequestParam String projectId, 
+                                               @RequestParam String zone,
+                                               @RequestParam String instanceName) {
+        Map<String,Object> response = new HashMap<String, Object>();
+        response.put("Instance:", cmd.describeInstance(projectId,zone,instanceName));
+        return response;
+    } 
+
     @PostMapping(path= "/delete", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseMessage> 
         deleteInstance(

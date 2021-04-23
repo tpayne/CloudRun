@@ -258,6 +258,11 @@ public class GCEComputeCmd {
         }
     }
 
+    // Describe instance
+    public Instance describeInstance(final String projectId, final String region, final String instanceName) {
+        return(getInstance(projectId,region,instanceName));
+    }
+
     // Create an instance
     public boolean createInstance(final String projectId, GCEInstance gceInstance)
         throws RuntimeException {
