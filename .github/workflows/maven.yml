@@ -21,5 +21,12 @@ jobs:
       with:
         java-version: '11'
         distribution: 'adopt'
-    - name: Build with Maven
-      run: (cd samples/SimpleSpringApp && mvn clean package) && (cd samples/FileSampleApp && mvn clean package) && (cd samples/StorageGCSSample && mvn clean package) && (cd samples/GCESample && mvn clean package)
+    - name: Build with SimpleSpringApp
+      run: (cd samples/SimpleSpringApp && mvn clean package)
+    - name: Build with FileSampleApp
+      run: (cd samples/FileSampleApp && mvn clean package)
+    - name: Build with StorageGCSSample
+      run: (cd samples/StorageGCSSample && mvn clean package) 
+    - name: Build with GCESample plus security scan
+      run: (cd samples/GCESample && mvn clean package && mvn clean install -Psecruity-scans)
+  
