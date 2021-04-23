@@ -114,6 +114,12 @@ To deploy the app to CloudRun, you can do or use the docker image built above...
     % curl https://samplescloudrun-storagegcssample-r2aphpfqba-uc.a.run.app/bucket/list
     {"List of created buckets":{"investdemo-300915-bucket2":{"name":"investdemo-300915-bucket2","url":"https://www.googleapis.com/storage/v1/b/investdemo-300915-bucket2"},"investdemo-300915-bucket":{"name":"investdemo-300915-bucket","url":"https://www.googleapis.com/storage/v1/b/investdemo-300915-bucket"}}}
 
+The following RESTful calls are supported...
+- /bucket/create - POST JSON call for creating GCS buckets
+- /bucket/list - GET call for listing created GCS buckets
+
+All results are returned in JSON.
+
 Clean Up
 --------
 To clean up the app, you can do...
