@@ -24,6 +24,8 @@ import samples.cloudrun.GCESample.message.ResponseMessage;
 import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Collections;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -57,7 +59,7 @@ public class GCEInstanceControllerCmd {
     } 
 
     @GetMapping("/list")
-    public Map<String,Object> listAll() {
+    public Map<String,Object> list() {
         Map<String,Object> response = new HashMap<String, Object>();
         response.put("List of created instances", service.getComputeInstances());
         return response;
@@ -69,6 +71,14 @@ public class GCEInstanceControllerCmd {
                                                @RequestParam String instanceName) {
         Map<String,Object> response = new HashMap<String, Object>();
         response.put("Instance:", cmd.describeInstance(projectId,zone,instanceName));
+        return response;
+    } 
+
+    @GetMapping("/listAll")
+    public Map<String,List<Object>> listAll(@RequestParam String projectId, 
+                                      @RequestParam String zone) {
+        Map<String,List<Object>> response = new HashMap<String, List<Object>>();
+        response.put("List of all instances", cmd.listInstances(projectId,zone));
         return response;
     } 
 

@@ -258,6 +258,28 @@ public class GCEComputeCmd {
         }
     }
 
+    // Get instance
+    private List<Object> list(final String projectId, final String region) {
+        try {
+            Compute.Instances.List instances = compute.instances().list(projectId, region);
+            InstanceList list = instances.execute();
+            if (list.getItems() == null) {
+                return null;
+            } else {
+                List<Object> listInst = new ArrayList<Object>(list.getItems());
+                return listInst;
+            }
+        } catch(Exception e) {
+            LOGGER.severe("list() :"+e.getMessage());
+            return null;
+        }
+    }
+
+    // List all instances
+    public List<Object> listInstances(final String projectId, final String region) {
+        return(list(projectId,region));
+    }
+
     // Describe instance
     public Instance describeInstance(final String projectId, final String region, final String instanceName) {
         return(getInstance(projectId,region,instanceName));
