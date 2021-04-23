@@ -8,6 +8,13 @@ Note - The output from these functions is in raw JSON as they are intended for c
 If you wish to make the output human readable, that is left as an action for the reader to do. It is doable
 with functions like `toPrettyString()` on JSON slurpers etc.
 
+The `pom.xml` used for this project build has been modified to also support optional security scans for OWASP
+dependencies, these can be invoked by doing...
+
+     % mvn clean install -Psecruity-scans
+     
+The checks can take a long time to run, so are not done by default.
+
 Dependencies
 ------------
 Before you attempt this example, please ensure you have done the following: -
