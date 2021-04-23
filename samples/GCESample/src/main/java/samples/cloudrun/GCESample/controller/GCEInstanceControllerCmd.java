@@ -33,11 +33,14 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PathVariable;
+
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
@@ -82,6 +85,34 @@ public class GCEInstanceControllerCmd {
         return response;
     } 
 
+    @DeleteMapping("/{projectId:.+}/{zone:.+}/{instanceName:.+}")
+    public ResponseEntity<ResponseMessage>
+        deleteInstance(@PathVariable String projectId, 
+                       @PathVariable String zone,
+                       @PathVariable String instanceName) {
+
+        String message = "";
+        try {
+            // Instantiates a client
+            GCEInstance instance = new GCEInstance(instanceName,
+                                                   zone);
+            
+            if (!cmd.deleteInstance(projectId,instance)) {
+                message = "Instance deletion failed";
+                return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message));                
+            }
+
+            service.getComputeInstances().remove(instance.getInstanceName());
+            LOGGER.info("deleteInstance() : Instance deleted");
+            message = "Instance deleted successfully";
+            return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
+        } catch(Exception e) {
+            LOGGER.severe("deleteInstance() :"+e.getMessage());
+            message = "Instance deleted failed with error: " + e.getMessage();
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message));
+        }  
+    }            
+    
     @PostMapping(path= "/delete", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseMessage> 
         deleteInstance(

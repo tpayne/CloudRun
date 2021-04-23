@@ -142,10 +142,8 @@ Delete functions...
         -d '{"projectId":"investdemo-300915","instanceName": "testme1","zone":"us-central1-a"}' \
         "https://samplescloudrun-gcesample-r2aphpfqba-uc.a.run.app/compute/delete"
     {"message":"Instance deleted successfully"}
-    % curl -X POST -H "Content-Type: application/json" \
-        -H "Authorization: bearer $(gcloud auth print-identity-token)" \
-        -d '{"projectId":"investdemo-300915","instanceName": "testme","zone":"us-central1-a"}' \
-        "https://samplescloudrun-gcesample-r2aphpfqba-uc.a.run.app/compute/delete"
+    % curl -X DELETE -H "Authorization: bearer $(gcloud auth print-identity-token)" \
+        https://samplescloudrun-gcesample-r2aphpfqba-uc.a.run.app/compute/$(gcloud config get-value project)/us-central1-a/testme
     {"message":"Instance deleted successfully"}
     % curl https://samplescloudrun-gcesample-r2aphpfqba-uc.a.run.app/compute/list
     {"List of created instances":{}}
@@ -156,6 +154,7 @@ The following RESTful calls are supported...
 - /compute/list - GET call for viewing created instances
 - /compute/describe - GET call for viewing details of specific instance
 - /compute/listAll - GET call for viewing details of all instances
+- /compute/[projectId]/[zone]/[instanceName] - DELETE xall for deleting VM instances
 
 All results are returned in JSON.
 
