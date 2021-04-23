@@ -13,7 +13,7 @@ Security Scanning
 The `pom.xml` used for this project build has been modified to also support optional security scans for OWASP
 dependencies, these can be invoked by doing...
 
-     % mvn clean install -Psecruity-scans
+     % mvn clean install -Psecurity-scans
      
 The checks can take a long time to run, so are not done by default. 
 
