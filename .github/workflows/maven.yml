@@ -28,5 +28,5 @@ jobs:
     - name: Build with StorageGCSSample
       run: (cd samples/StorageGCSSample && mvn clean package) 
     - name: Build with GCESample plus security scan
-      run: (cd samples/GCESample && mvn clean package && mvn clean install -Psecruity-scans)
+      run: (cd samples/GCESample && mvn clean package && mvn clean install -Psecurity-scans)
   
