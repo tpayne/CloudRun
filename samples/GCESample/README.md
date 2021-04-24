@@ -11,7 +11,7 @@ with functions like `toPrettyString()` on JSON slurpers etc.
 Security Scanning
 -----------------
 The `pom.xml` used for this project build has been modified to also support optional security scans for OWASP
-dependencies, these can be invoked by doing...
+dependencies. These can be invoked by doing...
 
      % mvn clean install -Psecurity-scans
      
