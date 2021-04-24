@@ -120,7 +120,8 @@ To deploy the app to CloudRun, you can do the following or use the docker image 
     Deploying container to Cloud Run service [samplescloudrun-gcesample] in project [investdemo-300915] region [europe-west1]
     ... 
     Service [samplescloudrun-gcesample] revision [samplescloudrun-gcesample-00005-sim] has been deployed and is serving 100 percent of traffic.
-    Service URL: https://samplescloudrun-gcesample-r2aphpfqba-uc.a.run.app    % gcloud run services list --platform managed
+    Service URL: https://samplescloudrun-gcesample-r2aphpfqba-uc.a.run.app    
+    % gcloud run services list --platform managed
     
 To test functions...
 
