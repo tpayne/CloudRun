@@ -53,7 +53,11 @@ import java.util.logging.Level;
 public class GCEInstanceControllerCmd {
 
     private final GCEInstanceService service = GCEInstanceService.getInstance();
+
     private static final Logger LOGGER = Logger.getLogger(GCEInstanceControllerCmd.class.getName());
+    
+    // This is a potential security hole as the instance is shared, but makes start times quicker...
+    // Ideally, not an approach to use with unauthenticated exposed services, but okay for a demo...
     private static GCEComputeCmd cmd = new GCEComputeCmd();
 
     @GetMapping("/version")
