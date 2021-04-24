@@ -75,30 +75,36 @@ public class GCEComputeCmd {
         throws IOException {
         try {
             // Initialise the class...
-            if (httpTransport != null && jsonFactoryInstance != null) {
+            if (httpTransport != null && jsonFactoryInstance != null &&
+                compute != null) {
                 return;
             }
 
-            jsonFactoryInstance = JacksonFactory.getDefaultInstance();
-            httpTransport = GoogleNetHttpTransport.newTrustedTransport();
-
-            // Authenticate using Google Application Default Credentials.
-            GoogleCredentials credential = GoogleCredentials.getApplicationDefault();
-            if (credential.createScopedRequired()) {
-                List<String> scopes = new ArrayList<>();
-                // Set Google Cloud Storage scope to Full Control.
-                scopes.add(ComputeScopes.DEVSTORAGE_FULL_CONTROL);
-                // Set Google Compute Engine scope to Read-write.
-                scopes.add(ComputeScopes.COMPUTE);
-                credential = credential.createScoped(scopes);
+            if (jsonFactoryInstance == null) {
+                jsonFactoryInstance = JacksonFactory.getDefaultInstance();
+            }
+            if (httpTransport == null) {
+                httpTransport = GoogleNetHttpTransport.newTrustedTransport();
             }
 
-            HttpRequestInitializer requestInitializer = new HttpCredentialsAdapter(credential);
+            if (compute == null) {
+                // Authenticate using Google Application Default Credentials.
+                GoogleCredentials credential = GoogleCredentials.getApplicationDefault();
+                if (credential.createScopedRequired()) {
+                    List<String> scopes = new ArrayList<>();
+                    // Set Google Cloud Storage scope to Full Control.
+                    scopes.add(ComputeScopes.DEVSTORAGE_FULL_CONTROL);
+                    // Set Google Compute Engine scope to Read-write.
+                    scopes.add(ComputeScopes.COMPUTE);
+                    credential = credential.createScoped(scopes);
+                }
 
-            // Create Compute Engine object for listing instances.
-            compute = new Compute.Builder(httpTransport, jsonFactoryInstance, requestInitializer)
-                          .setApplicationName(APPLICATION_NAME)
-                          .build(); 
+                HttpRequestInitializer requestInitializer = new HttpCredentialsAdapter(credential);
+                // Create Compute Engine object for listing instances.
+                compute = new Compute.Builder(httpTransport, jsonFactoryInstance, requestInitializer)
+                              .setApplicationName(APPLICATION_NAME)
+                              .build();
+            }
         } catch(Exception e) {
             LOGGER.severe("init() :"+e.getMessage());
             httpTransport = null;

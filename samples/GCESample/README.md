@@ -40,8 +40,14 @@ To run this sample on your local machine do the following.
 
 First, find out your current GCP project...
 
-    % gcloud config get-value project 
+    % gcloud config get-value project; gcloud config get-value run/region
     % gcloud info
+
+You can set it up with...
+
+    % gcloud projects list; gcloud compute regions list
+    % gcloud config set project <id>
+    % gcloud config set run/region <region>
     
 The following commands will build and deploy the application...
 
