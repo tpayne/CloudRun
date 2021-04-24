@@ -11,7 +11,7 @@ with functions like `toPrettyString()` on JSON slurpers etc.
 Security Scanning
 -----------------
 The `pom.xml` used for this project build has been modified to also support optional security scans for OWASP
-dependencies, these can be invoked by doing...
+dependencies. These can be invoked by doing...
 
      % mvn clean install -Psecurity-scans
      
@@ -106,7 +106,7 @@ To test the function for real you will need to deploy it to CloudRun.
 
 Deploying the App to CloudRun
 -----------------------------
-To deploy the app to CloudRun, you can do or use the docker image built above...
+To deploy the app to CloudRun, you can do the following or use the docker image built above...
 
     % mvn clean compile jib:build -Dgcp.projectId=$(gcloud config get-value project)
     % gcloud run deploy --image gcr.io/$(gcloud config get-value project)/samples.cloudrun-gcesample \
