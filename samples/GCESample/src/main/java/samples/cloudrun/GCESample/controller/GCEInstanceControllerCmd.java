@@ -54,17 +54,20 @@ public class GCEInstanceControllerCmd {
 
     private final GCEInstanceService service = GCEInstanceService.getInstance();
 
+    // Shared logger for messages
     private static final Logger LOGGER = Logger.getLogger(GCEInstanceControllerCmd.class.getName());
     
     // This is a potential security hole as the instance is shared, but makes start times quicker...
     // Ideally, not an approach to use with unauthenticated exposed services, but okay for a demo...
     private static GCEComputeCmd cmd = new GCEComputeCmd();
 
+    // Version checker
     @GetMapping("/version")
     public String versionApp() {
         return String.format("<h2>Version 1.0</h2>");
     } 
 
+    // Created instance cache lister
     @GetMapping("/list")
     public Map<String,Object> list() {
         Map<String,Object> response = new HashMap<String, Object>();
@@ -72,6 +75,7 @@ public class GCEInstanceControllerCmd {
         return response;
     } 
 
+    // URL mapper for getting details of a specific instance from a full URL
     @GetMapping("/describe/{projectId:.+}/{zone:.+}/{instanceName:.+}")
     public Map<String,Object> describeInstanceURL(@PathVariable String projectId, 
                                                @PathVariable String zone,
@@ -81,6 +85,7 @@ public class GCEInstanceControllerCmd {
         return response;
     } 
 
+    // Get the details of a specific instance from query params specified to URL
     @GetMapping("/describe")
     public Map<String,Object> describeInstance(@RequestParam String projectId, 
                                                @RequestParam String zone,
@@ -90,6 +95,7 @@ public class GCEInstanceControllerCmd {
         return response;
     } 
 
+    // URL mapper for listing details of all instances for a project/zone from a full URL
     @GetMapping("/listAll/{projectId:.+}/{zone:.+}")
     public Map<String,List<Object>> listAllURL(@PathVariable String projectId, 
                                                @PathVariable String zone) {
@@ -98,6 +104,7 @@ public class GCEInstanceControllerCmd {
         return response;
     }
 
+    // List details of all instances for a project/zone provided by query params specified to URL 
     @GetMapping("/listAll")
     public Map<String,List<Object>> listAll(@RequestParam String projectId, 
                                             @RequestParam String zone) {
@@ -106,6 +113,7 @@ public class GCEInstanceControllerCmd {
         return response;
     } 
 
+    // URL mapper for deleting an instance specified by a full URL
     @DeleteMapping("/{projectId:.+}/{zone:.+}/{instanceName:.+}")
     public ResponseEntity<ResponseMessage>
         deleteInstance(@PathVariable String projectId, 
@@ -134,6 +142,8 @@ public class GCEInstanceControllerCmd {
         }  
     }            
     
+    // Naught usage - not standard!
+    // Post mapper for JSON slurper to delete instance details based on JSON text
     @PostMapping(path= "/delete", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseMessage> 
         deleteInstance(
@@ -163,6 +173,7 @@ public class GCEInstanceControllerCmd {
         }  
     }
 
+    // Post mapper for JSON slurper to create instance details based on JSON text
     @PostMapping(path= "/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseMessage> 
         createInstance(
