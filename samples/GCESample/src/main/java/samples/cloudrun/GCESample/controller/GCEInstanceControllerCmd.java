@@ -94,6 +94,13 @@ public class GCEInstanceControllerCmd {
         return response;
     }
 
+    @GetMapping("/listAll/{projectId:.+}")
+    public Map<String,Map<String,List<Object>>> listAllURL(@PathVariable String projectId) {
+        Map<String,Map<String,List<Object>>> response = new HashMap<String, Map<String,List<Object>>>();
+        response.put("List of all instances", cmd.listInstances(projectId));
+        return response;
+    }
+
     @GetMapping("/listAll")
     public Map<String,List<Object>> listAll(@RequestParam String projectId, 
                                             @RequestParam String zone) {

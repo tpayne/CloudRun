@@ -28,6 +28,8 @@ import com.google.api.services.compute.model.Metadata;
 import com.google.api.services.compute.model.NetworkInterface;
 import com.google.api.services.compute.model.Operation;
 import com.google.api.services.compute.model.ServiceAccount;
+import com.google.api.services.compute.model.Zone;
+import com.google.api.services.compute.model.ZoneList;
 
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.http.HttpRequestInitializer;
@@ -259,6 +261,29 @@ public class GCEComputeCmd {
     }
 
     // Get instance
+    private Map<String,List<Object>> list(final String projectId) {
+        try {
+            Compute.Zones.List zones = compute.zones().list(projectId);
+            ZoneList list = zones.execute();
+            if (list.getItems() == null) {
+                return null;
+            } else {
+                Map<String,List<Object>> mmap = new HashMap<String,List<Object>>();
+                for (Zone zone : list.getItems()) {
+                    List<Object> insList = list(projectId,zone.getName());
+                    if (insList != null) {
+                        mmap.put(zone.getName(),insList);
+                    }
+                }   
+                return mmap;
+            }
+        } catch(Exception e) {
+            LOGGER.severe("list() :"+e.getMessage());
+            return null;
+        }
+    }
+
+    // Get instance
     private List<Object> list(final String projectId, final String region) {
         try {
             Compute.Instances.List instances = compute.instances().list(projectId, region);
@@ -278,6 +303,11 @@ public class GCEComputeCmd {
     // List all instances
     public List<Object> listInstances(final String projectId, final String region) {
         return(list(projectId,region));
+    }
+
+    // List all instances
+    public Map<String,List<Object>> listInstances(final String projectId) {
+        return(list(projectId));
     }
 
     // Describe instance
