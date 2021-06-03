@@ -7,6 +7,12 @@ Springboot. These services are cheaper to run than [Cloud Functions](https://git
 
 These samples assume you have a basic understanding of GCP, hosted compute services and Docker.
 
+You can setup a service which monitors a repo and will then kick off a build/deploy process if 
+a change to that repo is detected. These repos can either be: -
+
+* Source repos - like Git
+* Container repos - like GCR.IO
+
 Status
 ------
 ````
