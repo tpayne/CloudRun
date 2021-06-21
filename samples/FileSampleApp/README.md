@@ -86,7 +86,7 @@ The contents of the file 'f.txt' will be displaid.
 
 The following RESTful calls are supported...
 - /upload - POST FORM call for uploading files
-- /files - GET call sor listing files
+- /files - GET call for listing files
 - /files/[filename] - GET call for viewing files
 
 Deploying the App to CloudRun
