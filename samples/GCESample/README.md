@@ -13,7 +13,7 @@ Security Scanning
 The `pom.xml` used for this project build has been modified to also support optional security scans for OWASP
 dependencies. These can be invoked by doing...
 
-     % mvn clean install -Psecurity-scans
+     mvn clean install -Psecurity-scans
      
 The checks can take a long time to run, so are not done by default. 
 
@@ -40,34 +40,34 @@ To run this sample on your local machine do the following.
 
 First, find out your current GCP project...
 
-    % gcloud config get-value project; gcloud config get-value run/region
-    % gcloud info
+    gcloud config get-value project; gcloud config get-value run/region
+    gcloud info
 
 You can set it up with...
 
-    % gcloud projects list; gcloud compute regions list
-    % gcloud config set project <id>
-    % gcloud config set run/region <region>
+    gcloud projects list; gcloud compute regions list
+    gcloud config set project <id>
+    gcloud config set run/region <region>
     
 The following commands will build and deploy the application...
 
-    % mvn compile jib:dockerBuild -Dgcp.projectId=$(gcloud config get-value project)
-    % docker images gcr.io/investdemo-300915/samples.cloudrun-gcesample
+    mvn compile jib:dockerBuild -Dgcp.projectId=$(gcloud config get-value project)
+    docker images gcr.io/investdemo-300915/samples.cloudrun-gcesample
     REPOSITORY                                            TAG       IMAGE ID       CREATED        SIZE
     gcr.io/investdemo-300915/samples.cloudrun-gcesample   latest    78d327eb3911   51 years ago   156MB
 
 If you wish to test (or change the app) on your local system, then you can either use the 
 Docker image or run the app directly using...
 
-    % mvn clean package spring-boot:run
-    % curl localhost:8080/compute/version
+    mvn clean package spring-boot:run
+    curl localhost:8080/compute/version
     <h2>Version 1.0</h2>
 
 Build Instructions using Docker
 -------------------------------
 You can also build this sample using Docker. To do this, run the following...
 
-    % docker build . [-t gcr.io/$(gcloud config get-value project)/samples.cloudrun-gcesample:1.0]
+    docker build . [-t gcr.io/$(gcloud config get-value project)/samples.cloudrun-gcesample:1.0]
 
 This will compile and package the Docker image purely using Docker.
 
@@ -76,7 +76,7 @@ Testing the App
 Once you have built the image, you can then run it locally via the Docker image as shown
 below...
 
-    % docker run -p 8080:8080 gcr.io/$(gcloud config get-value project)/samples.cloudrun-gcesample:1.0
+    docker run -p 8080:8080 gcr.io/$(gcloud config get-value project)/samples.cloudrun-gcesample:1.0
       .   ____          _            __ _ _
      /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
     ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
@@ -99,11 +99,11 @@ below...
     2021-04-22 15:57:26.934  INFO 1 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
     2021-04-22 15:57:26.945  INFO 1 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 11 ms
 
-    % curl localhost:8080/compute/version
+    curl localhost:8080/compute/version
     <h2>Version 1.0</h2>
-    % curl localhost:8080/compute/list
+    curl localhost:8080/compute/list
     {"List of created instances":{}} 
-    % curl -X POST -H "Content-Type: application/json" \
+    curl -X POST -H "Content-Type: application/json" \
         -d '{"projectId":"investdemo-300915","instanceName": "testme","zone":"europe-west6-a"}' \
         "localhost:8080/compute/create"
     {"message":"Instance creation failed with error: The Application Default Credentials are not available. They are available if running in Google Compute Engine. Otherwise, the environment variable GOOGLE_APPLICATION_CREDENTIALS must be defined pointing to a file defining the credentials. See https://developers.google.com/accounts/docs/application-default-credentials for more information."}
@@ -114,35 +114,35 @@ Deploying the App to CloudRun
 -----------------------------
 To deploy the app to CloudRun, you can do the following or use the docker image built above...
 
-    % mvn clean compile jib:build -Dgcp.projectId=$(gcloud config get-value project)
-    % gcloud run deploy --image gcr.io/$(gcloud config get-value project)/samples.cloudrun-gcesample \
+    mvn clean compile jib:build -Dgcp.projectId=$(gcloud config get-value project)
+    gcloud run deploy --image gcr.io/$(gcloud config get-value project)/samples.cloudrun-gcesample \
          --platform managed
     Deploying container to Cloud Run service [samplescloudrun-gcesample] in project [investdemo-300915] region [europe-west1]
     ... 
     Service [samplescloudrun-gcesample] revision [samplescloudrun-gcesample-00005-sim] has been deployed and is serving 100 percent of traffic.
     Service URL: https://samplescloudrun-gcesample-r2aphpfqba-uc.a.run.app    
-    % gcloud run services list --platform managed
+    gcloud run services list --platform managed
     
 To test functions...
 
-    % curl https://samplescloudrun-gcesample-r2aphpfqba-uc.a.run.app/compute/version
+    curl https://samplescloudrun-gcesample-r2aphpfqba-uc.a.run.app/compute/version
     <h2>Version 1.0</h2>
 
 Create functions...
 
-    % curl https://samplescloudrun-gcesample-r2aphpfqba-uc.a.run.app/compute/list
+    curl https://samplescloudrun-gcesample-r2aphpfqba-uc.a.run.app/compute/list
     {"List of created instances":{}} 
-    % curl -X POST -H "Content-Type: application/json" \
+    curl -X POST -H "Content-Type: application/json" \
         -H "Authorization: bearer $(gcloud auth print-identity-token)" \
         -d '{"projectId":"investdemo-300915","instanceName": "testme","zone":"us-central1-a"}' \
         "https://samplescloudrun-gcesample-r2aphpfqba-uc.a.run.app/compute/create"
     {"message":"Instance created successfully"}
-    % curl -X POST -H "Content-Type: application/json" \
+    curl -X POST -H "Content-Type: application/json" \
         -H "Authorization: bearer $(gcloud auth print-identity-token)" \
         -d '{"projectId":"investdemo-300915","instanceName": "testme1","zone":"us-central1-a"}' \
         "https://samplescloudrun-gcesample-r2aphpfqba-uc.a.run.app/compute/create"
     {"message":"Instance created successfully"}
-    % curl -X POST -H "Content-Type: application/json" \
+    curl -X POST -H "Content-Type: application/json" \
         -H "Authorization: bearer $(gcloud auth print-identity-token)" \
         -d '{"projectId":"investdemo-300915","instanceName": "testme2","zone":"us-central1-b"}' \
         "https://samplescloudrun-gcesample-r2aphpfqba-uc.a.run.app/compute/create"
@@ -150,43 +150,43 @@ Create functions...
 
 Query functions...
 
-    % curl https://samplescloudrun-gcesample-r2aphpfqba-uc.a.run.app/compute/list
+    curl https://samplescloudrun-gcesample-r2aphpfqba-uc.a.run.app/compute/list
     {"List of created instances":{"testme1":{"instanceName":"testme1","zone":"us-central1-a","imageName":"ubuntu-os-cloud/global/images/ubuntu-2004-focal-v20200529","networkInterface":"ONE_TO_ONE_NAT","networkConfig":"External NAT","url":"","machineType":"f1-micro"},"testme":{"instanceName":"testme","zone":"us-central1-a","imageName":"ubuntu-os-cloud/global/images/ubuntu-2004-focal-v20200529","networkInterface":"ONE_TO_ONE_NAT","networkConfig":"External NAT","url":"","machineType":"f1-micro"},"testme2":{"instanceName":"testme2","zone":"us-central1-b","imageName":"ubuntu-os-cloud/global/images/ubuntu-2004-focal-v20200529","networkInterface":"ONE_TO_ONE_NAT","networkConfig":"External NAT","url":"","machineType":"f1-micro"}}}
 
-    % curl "https://samplescloudrun-gcesample-r2aphpfqba-uc.a.run.app/compute/listAll?projectId=investdemo-300915&zone=us-central1-a"
+    curl "https://samplescloudrun-gcesample-r2aphpfqba-uc.a.run.app/compute/listAll?projectId=investdemo-300915&zone=us-central1-a"
     {"List of all instances":[{"cpuPlatform":"Intel Haswell","creationTimestamp":"2021-04-23T04:26:57.967-07:00","deletionProtection":false,"disks":[{"autoDelete":true,"boot":true,"deviceName":"persistent-disk-0","diskSizeGb":10,"guestOsFeatures":[{"type":"VIRTIO_SCSI_MULTIQUEUE"},{"type":"UEFI_COMPATIBLE"}],"index":0,"interface":"SCSI","kind":"compute#attachedDisk","licenses":["https://www.googleapis.com/compute/v1/projects/ubuntu-os-cloud/global/licenses/ubuntu-2004-lts"],"mode":"READ_WRITE","source":"https://www.googleapis.com/compute/v1/projects/investdemo-300915/zones/us-central1-a/disks/testme","type":"PERSISTENT"}],"fingerprint":"P_f5fkx2ldw=","id":2759746860031611374,"kind":"compute#instance","labelFingerprint":"42WmSpB8rSM=","lastStartTimestamp":"2021-04-23T04:27:08.222-07:00","machineType":"https://www.googleapis.com/compute/v1/projects/investdemo-300915/zones/us-central1-a/machineTypes/f1-micro","metadata":{"fingerprint":"hFIa-7-XpjY=","kind":"compute#metadata"},"name":"testme","networkInterfaces":[{"accessConfigs":[{"kind":"compute#accessConfig","name":"External NAT","natIP":"34.121.188.214","networkTier":"PREMIUM","type":"ONE_TO_ONE_NAT"}],"fingerprint":"TpJsNPcuG9w=","kind":"compute#networkInterface","name":"nic0","network":"https://www.googleapis.com/compute/v1/projects/investdemo-300915/global/networks/default","networkIP":"10.128.0.26","subnetwork":"https://www.googleapis.com/compute/v1/projects/investdemo-300915/regions/us-central1/subnetworks/default"}],"scheduling":{"automaticRestart":true,"onHostMaintenance":"MIGRATE","preemptible":false},"selfLink":"https://www.googleapis.com/compute/v1/projects/investdemo-300915/zones/us-central1-a/instances/testme","serviceAccounts":[{"email":"127131513455-compute@developer.gserviceaccount.com","scopes":["https://www.googleapis.com/auth/devstorage.full_control","https://www.googleapis.com/auth/compute"]}],"shieldedInstanceConfig":{"enableIntegrityMonitoring":true,"enableSecureBoot":false,"enableVtpm":true},"shieldedInstanceIntegrityPolicy":{"updateAutoLearnPolicy":true},"startRestricted":false,"status":"RUNNING","tags":{"fingerprint":"42WmSpB8rSM="},"zone":"https://www.googleapis.com/compute/v1/projects/investdemo-300915/zones/us-central1-a"},{"cpuPlatform":"Intel Haswell","creationTimestamp":"2021-04-23T04:26:39.266-07:00","deletionProtection":false,"disks":[{"autoDelete":true,"boot":true,"deviceName":"persistent-disk-0","diskSizeGb":10,"guestOsFeatures":[{"type":"VIRTIO_SCSI_MULTIQUEUE"},{"type":"UEFI_COMPATIBLE"}],"index":0,"interface":"SCSI","kind":"compute#attachedDisk","licenses":["https://www.googleapis.com/compute/v1/projects/ubuntu-os-cloud/global/licenses/ubuntu-2004-lts"],"mode":"READ_WRITE","source":"https://www.googleapis.com/compute/v1/projects/investdemo-300915/zones/us-central1-a/disks/testme1","type":"PERSISTENT"}],"fingerprint":"momERo1d1ZU=","id":916676668472365057,"kind":"compute#instance","labelFingerprint":"42WmSpB8rSM=","lastStartTimestamp":"2021-04-23T04:26:47.428-07:00","machineType":"https://www.googleapis.com/compute/v1/projects/investdemo-300915/zones/us-central1-a/machineTypes/f1-micro","metadata":{"fingerprint":"hFIa-7-XpjY=","kind":"compute#metadata"},"name":"testme1","networkInterfaces":[{"accessConfigs":[{"kind":"compute#accessConfig","name":"External NAT","natIP":"34.123.160.56","networkTier":"PREMIUM","type":"ONE_TO_ONE_NAT"}],"fingerprint":"ew2NDI6hn5A=","kind":"compute#networkInterface","name":"nic0","network":"https://www.googleapis.com/compute/v1/projects/investdemo-300915/global/networks/default","networkIP":"10.128.0.25","subnetwork":"https://www.googleapis.com/compute/v1/projects/investdemo-300915/regions/us-central1/subnetworks/default"}],"scheduling":{"automaticRestart":true,"onHostMaintenance":"MIGRATE","preemptible":false},"selfLink":"https://www.googleapis.com/compute/v1/projects/investdemo-300915/zones/us-central1-a/instances/testme1","serviceAccounts":[{"email":"127131513455-compute@developer.gserviceaccount.com","scopes":["https://www.googleapis.com/auth/devstorage.full_control","https://www.googleapis.com/auth/compute"]}],"shieldedInstanceConfig":{"enableIntegrityMonitoring":true,"enableSecureBoot":false,"enableVtpm":true},"shieldedInstanceIntegrityPolicy":{"updateAutoLearnPolicy":true},"startRestricted":false,"status":"RUNNING","tags":{"fingerprint":"42WmSpB8rSM="},"zone":"https://www.googleapis.com/compute/v1/projects/investdemo-300915/zones/us-central1-a"}]}    
 
-    % curl "https://samplescloudrun-gcesample-r2aphpfqba-uc.a.run.app/compute/listAll?projectId=investdemo-300915&zone=us-central1-b"
+    curl "https://samplescloudrun-gcesample-r2aphpfqba-uc.a.run.app/compute/listAll?projectId=investdemo-300915&zone=us-central1-b"
     {"List of all instances":[{"cpuPlatform":"Intel Haswell","creationTimestamp":"2021-04-24T06:38:35.291-07:00","deletionProtection":false,"disks":[{"autoDelete":true,"boot":true,"deviceName":"persistent-disk-0","diskSizeGb":10,"guestOsFeatures":[{"type":"VIRTIO_SCSI_MULTIQUEUE"},{"type":"UEFI_COMPATIBLE"}],"index":0,"interface":"SCSI","kind":"compute#attachedDisk","licenses":["https://www.googleapis.com/compute/v1/projects/ubuntu-os-cloud/global/licenses/ubuntu-2004-lts"],"mode":"READ_WRITE","source":"https://www.googleapis.com/compute/v1/projects/investdemo-300915/zones/us-central1-b/disks/testme2","type":"PERSISTENT"}],"fingerprint":"lIHqH35yJUY=","id":2200471538894479797,"kind":"compute#instance","labelFingerprint":"42WmSpB8rSM=","lastStartTimestamp":"2021-04-24T06:38:43.338-07:00","machineType":"https://www.googleapis.com/compute/v1/projects/investdemo-300915/zones/us-central1-b/machineTypes/f1-micro","metadata":{"fingerprint":"hFIa-7-XpjY=","kind":"compute#metadata"},"name":"testme2","networkInterfaces":[{"accessConfigs":[{"kind":"compute#accessConfig","name":"External NAT","natIP":"35.194.57.110","networkTier":"PREMIUM","type":"ONE_TO_ONE_NAT"}],"fingerprint":"Wgaihu4WHn0=","kind":"compute#networkInterface","name":"nic0","network":"https://www.googleapis.com/compute/v1/projects/investdemo-300915/global/networks/default","networkIP":"10.128.0.33","subnetwork":"https://www.googleapis.com/compute/v1/projects/investdemo-300915/regions/us-central1/subnetworks/default"}],"scheduling":{"automaticRestart":true,"onHostMaintenance":"MIGRATE","preemptible":false},"selfLink":"https://www.googleapis.com/compute/v1/projects/investdemo-300915/zones/us-central1-b/instances/testme2","serviceAccounts":[{"email":"127131513455-compute@developer.gserviceaccount.com","scopes":["https://www.googleapis.com/auth/devstorage.full_control","https://www.googleapis.com/auth/compute"]}],"shieldedInstanceConfig":{"enableIntegrityMonitoring":true,"enableSecureBoot":false,"enableVtpm":true},"shieldedInstanceIntegrityPolicy":{"updateAutoLearnPolicy":true},"startRestricted":false,"status":"RUNNING","tags":{"fingerprint":"42WmSpB8rSM="},"zone":"https://www.googleapis.com/compute/v1/projects/investdemo-300915/zones/us-central1-b"}]}
 
-    % curl "https://samplescloudrun-gcesample-r2aphpfqba-uc.a.run.app/compute/listAll/investdemo-300915/us-central1-a"
+    curl "https://samplescloudrun-gcesample-r2aphpfqba-uc.a.run.app/compute/listAll/investdemo-300915/us-central1-a"
     {"List of all instances":[{"cpuPlatform":"Intel Haswell","creationTimestamp":"2021-04-24T06:36:42.089-07:00","deletionProtection":false,"disks":[{"autoDelete":true,"boot":true,"deviceName":"persistent-disk-0","diskSizeGb":10,"guestOsFeatures":[{"type":"VIRTIO_SCSI_MULTIQUEUE"},{"type":"UEFI_COMPATIBLE"}],"index":0,"interface":"SCSI","kind":"compute#attachedDisk","licenses":["https://www.googleapis.com/compute/v1/projects/ubuntu-os-cloud/global/licenses/ubuntu-2004-lts"],"mode":"READ_WRITE","source":"https://www.googleapis.com/compute/v1/projects/investdemo-300915/zones/us-central1-a/disks/testme","type":"PERSISTENT"}],"fingerprint":"Y7L1BaTKdEo=","id":437560654147723270,"kind":"compute#instance","labelFingerprint":"42WmSpB8rSM=","lastStartTimestamp":"2021-04-24T06:36:51.310-07:00","machineType":"https://www.googleapis.com/compute/v1/projects/investdemo-300915/zones/us-central1-a/machineTypes/f1-micro","metadata":{"fingerprint":"hFIa-7-XpjY=","kind":"compute#metadata"},"name":"testme","networkInterfaces":[{"accessConfigs":[{"kind":"compute#accessConfig","name":"External NAT","natIP":"35.222.197.106","networkTier":"PREMIUM","type":"ONE_TO_ONE_NAT"}],"fingerprint":"C7KqxSZd85A=","kind":"compute#networkInterface","name":"nic0","network":"https://www.googleapis.com/compute/v1/projects/investdemo-300915/global/networks/default","networkIP":"10.128.0.31","subnetwork":"https://www.googleapis.com/compute/v1/projects/investdemo-300915/regions/us-central1/subnetworks/default"}],"scheduling":{"automaticRestart":true,"onHostMaintenance":"MIGRATE","preemptible":false},"selfLink":"https://www.googleapis.com/compute/v1/projects/investdemo-300915/zones/us-central1-a/instances/testme","serviceAccounts":[{"email":"127131513455-compute@developer.gserviceaccount.com","scopes":["https://www.googleapis.com/auth/devstorage.full_control","https://www.googleapis.com/auth/compute"]}],"shieldedInstanceConfig":{"enableIntegrityMonitoring":true,"enableSecureBoot":false,"enableVtpm":true},"shieldedInstanceIntegrityPolicy":{"updateAutoLearnPolicy":true},"startRestricted":false,"status":"RUNNING","tags":{"fingerprint":"42WmSpB8rSM="},"zone":"https://www.googleapis.com/compute/v1/projects/investdemo-300915/zones/us-central1-a"},{"cpuPlatform":"Intel Haswell","creationTimestamp":"2021-04-24T06:37:06.252-07:00","deletionProtection":false,"disks":[{"autoDelete":true,"boot":true,"deviceName":"persistent-disk-0","diskSizeGb":10,"guestOsFeatures":[{"type":"VIRTIO_SCSI_MULTIQUEUE"},{"type":"UEFI_COMPATIBLE"}],"index":0,"interface":"SCSI","kind":"compute#attachedDisk","licenses":["https://www.googleapis.com/compute/v1/projects/ubuntu-os-cloud/global/licenses/ubuntu-2004-lts"],"mode":"READ_WRITE","source":"https://www.googleapis.com/compute/v1/projects/investdemo-300915/zones/us-central1-a/disks/testme1","type":"PERSISTENT"}],"fingerprint":"LuHeqaHgN54=","id":1711116404140909038,"kind":"compute#instance","labelFingerprint":"42WmSpB8rSM=","lastStartTimestamp":"2021-04-24T06:37:14.392-07:00","machineType":"https://www.googleapis.com/compute/v1/projects/investdemo-300915/zones/us-central1-a/machineTypes/f1-micro","metadata":{"fingerprint":"hFIa-7-XpjY=","kind":"compute#metadata"},"name":"testme1","networkInterfaces":[{"accessConfigs":[{"kind":"compute#accessConfig","name":"External NAT","natIP":"35.222.100.195","networkTier":"PREMIUM","type":"ONE_TO_ONE_NAT"}],"fingerprint":"x5-U6eEkjxw=","kind":"compute#networkInterface","name":"nic0","network":"https://www.googleapis.com/compute/v1/projects/investdemo-300915/global/networks/default","networkIP":"10.128.0.32","subnetwork":"https://www.googleapis.com/compute/v1/projects/investdemo-300915/regions/us-central1/subnetworks/default"}],"scheduling":{"automaticRestart":true,"onHostMaintenance":"MIGRATE","preemptible":false},"selfLink":"https://www.googleapis.com/compute/v1/projects/investdemo-300915/zones/us-central1-a/instances/testme1","serviceAccounts":[{"email":"127131513455-compute@developer.gserviceaccount.com","scopes":["https://www.googleapis.com/auth/devstorage.full_control","https://www.googleapis.com/auth/compute"]}],"shieldedInstanceConfig":{"enableIntegrityMonitoring":true,"enableSecureBoot":false,"enableVtpm":true},"shieldedInstanceIntegrityPolicy":{"updateAutoLearnPolicy":true},"startRestricted":false,"status":"RUNNING","tags":{"fingerprint":"42WmSpB8rSM="},"zone":"https://www.googleapis.com/compute/v1/projects/investdemo-300915/zones/us-central1-a"}]}
 
-    % curl "https://samplescloudrun-gcesample-r2aphpfqba-uc.a.run.app/compute/listAll/investdemo-300915/us-central1-b"
+    curl "https://samplescloudrun-gcesample-r2aphpfqba-uc.a.run.app/compute/listAll/investdemo-300915/us-central1-b"
     {"List of all instances":[{"cpuPlatform":"Intel Haswell","creationTimestamp":"2021-04-24T06:38:35.291-07:00","deletionProtection":false,"disks":[{"autoDelete":true,"boot":true,"deviceName":"persistent-disk-0","diskSizeGb":10,"guestOsFeatures":[{"type":"VIRTIO_SCSI_MULTIQUEUE"},{"type":"UEFI_COMPATIBLE"}],"index":0,"interface":"SCSI","kind":"compute#attachedDisk","licenses":["https://www.googleapis.com/compute/v1/projects/ubuntu-os-cloud/global/licenses/ubuntu-2004-lts"],"mode":"READ_WRITE","source":"https://www.googleapis.com/compute/v1/projects/investdemo-300915/zones/us-central1-b/disks/testme2","type":"PERSISTENT"}],"fingerprint":"lIHqH35yJUY=","id":2200471538894479797,"kind":"compute#instance","labelFingerprint":"42WmSpB8rSM=","lastStartTimestamp":"2021-04-24T06:38:43.338-07:00","machineType":"https://www.googleapis.com/compute/v1/projects/investdemo-300915/zones/us-central1-b/machineTypes/f1-micro","metadata":{"fingerprint":"hFIa-7-XpjY=","kind":"compute#metadata"},"name":"testme2","networkInterfaces":[{"accessConfigs":[{"kind":"compute#accessConfig","name":"External NAT","natIP":"35.194.57.110","networkTier":"PREMIUM","type":"ONE_TO_ONE_NAT"}],"fingerprint":"Wgaihu4WHn0=","kind":"compute#networkInterface","name":"nic0","network":"https://www.googleapis.com/compute/v1/projects/investdemo-300915/global/networks/default","networkIP":"10.128.0.33","subnetwork":"https://www.googleapis.com/compute/v1/projects/investdemo-300915/regions/us-central1/subnetworks/default"}],"scheduling":{"automaticRestart":true,"onHostMaintenance":"MIGRATE","preemptible":false},"selfLink":"https://www.googleapis.com/compute/v1/projects/investdemo-300915/zones/us-central1-b/instances/testme2","serviceAccounts":[{"email":"127131513455-compute@developer.gserviceaccount.com","scopes":["https://www.googleapis.com/auth/devstorage.full_control","https://www.googleapis.com/auth/compute"]}],"shieldedInstanceConfig":{"enableIntegrityMonitoring":true,"enableSecureBoot":false,"enableVtpm":true},"shieldedInstanceIntegrityPolicy":{"updateAutoLearnPolicy":true},"startRestricted":false,"status":"RUNNING","tags":{"fingerprint":"42WmSpB8rSM="},"zone":"https://www.googleapis.com/compute/v1/projects/investdemo-300915/zones/us-central1-b"}]}
 
-    % curl "https://samplescloudrun-gcesample-r2aphpfqba-uc.a.run.app/compute/listAll/investdemo-300915/"
+    curl "https://samplescloudrun-gcesample-r2aphpfqba-uc.a.run.app/compute/listAll/investdemo-300915/"
     {"List of all instances":{"us-central1-a":[{"cpuPlatform":"Intel Haswell","creationTimestamp":"2021-04-24T06:36:42.089-07:00","deletionProtection":false,"disks":[{"autoDelete":true,"boot":true,"deviceName":"persistent-disk-0","diskSizeGb":10,"guestOsFeatures":[{"type":"VIRTIO_SCSI_MULTIQUEUE"},{"type":"UEFI_COMPATIBLE"}],"index":0,"interface":"SCSI","kind":"compute#attachedDisk","licenses":["https://www.googleapis.com/compute/v1/projects/ubuntu-os-cloud/global/licenses/ubuntu-2004-lts"],"mode":"READ_WRITE","source":"https://www.googleapis.com/compute/v1/projects/investdemo-300915/zones/us-central1-a/disks/testme","type":"PERSISTENT"}],"fingerprint":"Y7L1BaTKdEo=","id":437560654147723270,"kind":"compute#instance","labelFingerprint":"42WmSpB8rSM=","lastStartTimestamp":"2021-04-24T06:36:51.310-07:00","machineType":"https://www.googleapis.com/compute/v1/projects/investdemo-300915/zones/us-central1-a/machineTypes/f1-micro","metadata":{"fingerprint":"hFIa-7-XpjY=","kind":"compute#metadata"},"name":"testme","networkInterfaces":[{"accessConfigs":[{"kind":"compute#accessConfig","name":"External NAT","natIP":"35.222.197.106","networkTier":"PREMIUM","type":"ONE_TO_ONE_NAT"}],"fingerprint":"C7KqxSZd85A=","kind":"compute#networkInterface","name":"nic0","network":"https://www.googleapis.com/compute/v1/projects/investdemo-300915/global/networks/default","networkIP":"10.128.0.31","subnetwork":"https://www.googleapis.com/compute/v1/projects/investdemo-300915/regions/us-central1/subnetworks/default"}],"scheduling":{"automaticRestart":true,"onHostMaintenance":"MIGRATE","preemptible":false},"selfLink":"https://www.googleapis.com/compute/v1/projects/investdemo-300915/zones/us-central1-a/instances/testme","serviceAccounts":[{"email":"127131513455-compute@developer.gserviceaccount.com","scopes":["https://www.googleapis.com/auth/devstorage.full_control","https://www.googleapis.com/auth/compute"]}],"shieldedInstanceConfig":{"enableIntegrityMonitoring":true,"enableSecureBoot":false,"enableVtpm":true},"shieldedInstanceIntegrityPolicy":{"updateAutoLearnPolicy":true},"startRestricted":false,"status":"RUNNING","tags":{"fingerprint":"42WmSpB8rSM="},"zone":"https://www.googleapis.com/compute/v1/projects/investdemo-300915/zones/us-central1-a"},{"cpuPlatform":"Intel Haswell","creationTimestamp":"2021-04-24T06:37:06.252-07:00","deletionProtection":false,"disks":[{"autoDelete":true,"boot":true,"deviceName":"persistent-disk-0","diskSizeGb":10,"guestOsFeatures":[{"type":"VIRTIO_SCSI_MULTIQUEUE"},{"type":"UEFI_COMPATIBLE"}],"index":0,"interface":"SCSI","kind":"compute#attachedDisk","licenses":["https://www.googleapis.com/compute/v1/projects/ubuntu-os-cloud/global/licenses/ubuntu-2004-lts"],"mode":"READ_WRITE","source":"https://www.googleapis.com/compute/v1/projects/investdemo-300915/zones/us-central1-a/disks/testme1","type":"PERSISTENT"}],"fingerprint":"LuHeqaHgN54=","id":1711116404140909038,"kind":"compute#instance","labelFingerprint":"42WmSpB8rSM=","lastStartTimestamp":"2021-04-24T06:37:14.392-07:00","machineType":"https://www.googleapis.com/compute/v1/projects/investdemo-300915/zones/us-central1-a/machineTypes/f1-micro","metadata":{"fingerprint":"hFIa-7-XpjY=","kind":"compute#metadata"},"name":"testme1","networkInterfaces":[{"accessConfigs":[{"kind":"compute#accessConfig","name":"External NAT","natIP":"35.222.100.195","networkTier":"PREMIUM","type":"ONE_TO_ONE_NAT"}],"fingerprint":"x5-U6eEkjxw=","kind":"compute#networkInterface","name":"nic0","network":"https://www.googleapis.com/compute/v1/projects/investdemo-300915/global/networks/default","networkIP":"10.128.0.32","subnetwork":"https://www.googleapis.com/compute/v1/projects/investdemo-300915/regions/us-central1/subnetworks/default"}],"scheduling":{"automaticRestart":true,"onHostMaintenance":"MIGRATE","preemptible":false},"selfLink":"https://www.googleapis.com/compute/v1/projects/investdemo-300915/zones/us-central1-a/instances/testme1","serviceAccounts":[{"email":"127131513455-compute@developer.gserviceaccount.com","scopes":["https://www.googleapis.com/auth/devstorage.full_control","https://www.googleapis.com/auth/compute"]}],"shieldedInstanceConfig":{"enableIntegrityMonitoring":true,"enableSecureBoot":false,"enableVtpm":true},"shieldedInstanceIntegrityPolicy":{"updateAutoLearnPolicy":true},"startRestricted":false,"status":"RUNNING","tags":{"fingerprint":"42WmSpB8rSM="},"zone":"https://www.googleapis.com/compute/v1/projects/investdemo-300915/zones/us-central1-a"}],"us-central1-b":[{"cpuPlatform":"Intel Haswell","creationTimestamp":"2021-04-24T06:38:35.291-07:00","deletionProtection":false,"disks":[{"autoDelete":true,"boot":true,"deviceName":"persistent-disk-0","diskSizeGb":10,"guestOsFeatures":[{"type":"VIRTIO_SCSI_MULTIQUEUE"},{"type":"UEFI_COMPATIBLE"}],"index":0,"interface":"SCSI","kind":"compute#attachedDisk","licenses":["https://www.googleapis.com/compute/v1/projects/ubuntu-os-cloud/global/licenses/ubuntu-2004-lts"],"mode":"READ_WRITE","source":"https://www.googleapis.com/compute/v1/projects/investdemo-300915/zones/us-central1-b/disks/testme2","type":"PERSISTENT"}],"fingerprint":"lIHqH35yJUY=","id":2200471538894479797,"kind":"compute#instance","labelFingerprint":"42WmSpB8rSM=","lastStartTimestamp":"2021-04-24T06:38:43.338-07:00","machineType":"https://www.googleapis.com/compute/v1/projects/investdemo-300915/zones/us-central1-b/machineTypes/f1-micro","metadata":{"fingerprint":"hFIa-7-XpjY=","kind":"compute#metadata"},"name":"testme2","networkInterfaces":[{"accessConfigs":[{"kind":"compute#accessConfig","name":"External NAT","natIP":"35.194.57.110","networkTier":"PREMIUM","type":"ONE_TO_ONE_NAT"}],"fingerprint":"Wgaihu4WHn0=","kind":"compute#networkInterface","name":"nic0","network":"https://www.googleapis.com/compute/v1/projects/investdemo-300915/global/networks/default","networkIP":"10.128.0.33","subnetwork":"https://www.googleapis.com/compute/v1/projects/investdemo-300915/regions/us-central1/subnetworks/default"}],"scheduling":{"automaticRestart":true,"onHostMaintenance":"MIGRATE","preemptible":false},"selfLink":"https://www.googleapis.com/compute/v1/projects/investdemo-300915/zones/us-central1-b/instances/testme2","serviceAccounts":[{"email":"127131513455-compute@developer.gserviceaccount.com","scopes":["https://www.googleapis.com/auth/devstorage.full_control","https://www.googleapis.com/auth/compute"]}],"shieldedInstanceConfig":{"enableIntegrityMonitoring":true,"enableSecureBoot":false,"enableVtpm":true},"shieldedInstanceIntegrityPolicy":{"updateAutoLearnPolicy":true},"startRestricted":false,"status":"RUNNING","tags":{"fingerprint":"42WmSpB8rSM="},"zone":"https://www.googleapis.com/compute/v1/projects/investdemo-300915/zones/us-central1-b"}]}}
 
-    % curl -H "Authorization: bearer $(gcloud auth print-identity-token)" \
+    curl -H "Authorization: bearer $(gcloud auth print-identity-token)" \
         "https://samplescloudrun-gcesample-r2aphpfqba-uc.a.run.app/compute/describe?projectId=investdemo-300915&zone=us-central1-a&instanceName=testme"
     {"Instance:":{"cpuPlatform":"Intel Haswell","creationTimestamp":"2021-04-23T03:47:03.837-07:00","deletionProtection":false,"disks":[{"autoDelete":true,"boot":true,"deviceName":"persistent-disk-0","diskSizeGb":10,"guestOsFeatures":[{"type":"VIRTIO_SCSI_MULTIQUEUE"},{"type":"UEFI_COMPATIBLE"}],"index":0,"interface":"SCSI","kind":"compute#attachedDisk","licenses":["https://www.googleapis.com/compute/v1/projects/ubuntu-os-cloud/global/licenses/ubuntu-2004-lts"],"mode":"READ_WRITE","source":"https://www.googleapis.com/compute/v1/projects/investdemo-300915/zones/us-central1-a/disks/testme","type":"PERSISTENT"}],"fingerprint":"WA7t78QVSo4=","id":7496947984810056520,"kind":"compute#instance","labelFingerprint":"42WmSpB8rSM=","lastStartTimestamp":"2021-04-23T03:47:13.913-07:00","machineType":"https://www.googleapis.com/compute/v1/projects/investdemo-300915/zones/us-central1-a/machineTypes/f1-micro","metadata":{"fingerprint":"hFIa-7-XpjY=","kind":"compute#metadata"},"name":"testme","networkInterfaces":[{"accessConfigs":[{"kind":"compute#accessConfig","name":"External NAT","natIP":"34.123.160.56","networkTier":"PREMIUM","type":"ONE_TO_ONE_NAT"}],"fingerprint":"rLroH_4xk-0=","kind":"compute#networkInterface","name":"nic0","network":"https://www.googleapis.com/compute/v1/projects/investdemo-300915/global/networks/default","networkIP":"10.128.0.24","subnetwork":"https://www.googleapis.com/compute/v1/projects/investdemo-300915/regions/us-central1/subnetworks/default"}],"scheduling":{"automaticRestart":true,"onHostMaintenance":"MIGRATE","preemptible":false},"selfLink":"https://www.googleapis.com/compute/v1/projects/investdemo-300915/zones/us-central1-a/instances/testme","serviceAccounts":[{"email":"127131513455-compute@developer.gserviceaccount.com","scopes":["https://www.googleapis.com/auth/devstorage.full_control","https://www.googleapis.com/auth/compute"]}],"shieldedInstanceConfig":{"enableIntegrityMonitoring":true,"enableSecureBoot":false,"enableVtpm":true},"shieldedInstanceIntegrityPolicy":{"updateAutoLearnPolicy":true},"startRestricted":false,"status":"RUNNING","tags":{"fingerprint":"42WmSpB8rSM="},"zone":"https://www.googleapis.com/compute/v1/projects/investdemo-300915/zones/us-central1-a"}    
 
-    % curl -H "Authorization: bearer $(gcloud auth print-identity-token)" \
+    curl -H "Authorization: bearer $(gcloud auth print-identity-token)" \
         https://samplescloudrun-gcesample-r2aphpfqba-uc.a.run.app/compute/describe/investdemo-300915/us-central1-a/testme
     {"Instance:":{"cpuPlatform":"Intel Haswell","creationTimestamp":"2021-04-23T12:10:57.548-07:00","deletionProtection":false,"disks":[{"autoDelete":true,"boot":true,"deviceName":"persistent-disk-0","diskSizeGb":10,"guestOsFeatures":[{"type":"VIRTIO_SCSI_MULTIQUEUE"},{"type":"UEFI_COMPATIBLE"}],"index":0,"interface":"SCSI","kind":"compute#attachedDisk","licenses":["https://www.googleapis.com/compute/v1/projects/ubuntu-os-cloud/global/licenses/ubuntu-2004-lts"],"mode":"READ_WRITE","source":"https://www.googleapis.com/compute/v1/projects/investdemo-300915/zones/us-central1-a/disks/testme","type":"PERSISTENT"}],"fingerprint":"bxBRPbclsk4=","id":4598894054232466734,"kind":"compute#instance","labelFingerprint":"42WmSpB8rSM=","lastStartTimestamp":"2021-04-23T12:11:06.563-07:00","machineType":"https://www.googleapis.com/compute/v1/projects/investdemo-300915/zones/us-central1-a/machineTypes/f1-micro","metadata":{"fingerprint":"hFIa-7-XpjY=","kind":"compute#metadata"},"name":"testme","networkInterfaces":[{"accessConfigs":[{"kind":"compute#accessConfig","name":"External NAT","natIP":"34.122.238.17","networkTier":"PREMIUM","type":"ONE_TO_ONE_NAT"}],"fingerprint":"sROInMfZX-o=","kind":"compute#networkInterface","name":"nic0","network":"https://www.googleapis.com/compute/v1/projects/investdemo-300915/global/networks/default","networkIP":"10.128.0.29","subnetwork":"https://www.googleapis.com/compute/v1/projects/investdemo-300915/regions/us-central1/subnetworks/default"}],"scheduling":{"automaticRestart":true,"onHostMaintenance":"MIGRATE","preemptible":false},"selfLink":"https://www.googleapis.com/compute/v1/projects/investdemo-300915/zones/us-central1-a/instances/testme","serviceAccounts":[{"email":"127131513455-compute@developer.gserviceaccount.com","scopes":["https://www.googleapis.com/auth/devstorage.full_control","https://www.googleapis.com/auth/compute"]}],"shieldedInstanceConfig":{"enableIntegrityMonitoring":true,"enableSecureBoot":false,"enableVtpm":true},"shieldedInstanceIntegrityPolicy":{"updateAutoLearnPolicy":true},"startRestricted":false,"status":"RUNNING","tags":{"fingerprint":"42WmSpB8rSM="},"zone":"https://www.googleapis.com/compute/v1/projects/investdemo-300915/zones/us-central1-a"}
 
 Delete functions...
 
-    % curl -X POST -H "Content-Type: application/json" \
+    curl -X POST -H "Content-Type: application/json" \
         -H "Authorization: bearer $(gcloud auth print-identity-token)" \
         -d '{"projectId":"investdemo-300915","instanceName": "testme1","zone":"us-central1-a"}' \
         "https://samplescloudrun-gcesample-r2aphpfqba-uc.a.run.app/compute/delete"
     {"message":"Instance deleted successfully"}
-    % curl -X DELETE -H "Authorization: bearer $(gcloud auth print-identity-token)" \
+    curl -X DELETE -H "Authorization: bearer $(gcloud auth print-identity-token)" \
         https://samplescloudrun-gcesample-r2aphpfqba-uc.a.run.app/compute/$(gcloud config get-value project)/us-central1-a/testme
     {"message":"Instance deleted successfully"}
-    % curl -X DELETE -H "Authorization: bearer $(gcloud auth print-identity-token)" \
+    curl -X DELETE -H "Authorization: bearer $(gcloud auth print-identity-token)" \
         https://samplescloudrun-gcesample-r2aphpfqba-uc.a.run.app/compute/$(gcloud config get-value project)/us-central1-b/testme2
     {"message":"Instance deleted successfully"}
     % curl https://samplescloudrun-gcesample-r2aphpfqba-uc.a.run.app/compute/list
@@ -213,13 +213,13 @@ Clean Up
 --------
 To clean up the app, you can do...
 
-    % mvn clean 
-    % gcloud run services list --platform managed
+    mvn clean 
+    gcloud run services list --platform managed
     # Use the appropriate service name from above to delete the one you want.
     # The name will depend on the deployment method used.
     # The delete statement below uses "samplescloudrun-gcesample" as the name...
-    % gcloud run services delete samplescloudrun-gcesample --platform managed
-    % docker image rm -f gcr.io/$(gcloud config get-value project)/samples.cloudrun-gcesample:1.0 
+    gcloud run services delete samplescloudrun-gcesample --platform managed
+    docker image rm -f gcr.io/$(gcloud config get-value project)/samples.cloudrun-gcesample:1.0 
 
 References
 ----------
