@@ -23,6 +23,12 @@ Build Status
 ------------
 [![Java CI with Maven](https://github.com/tpayne/CloudRun/actions/workflows/maven.yml/badge.svg)](https://github.com/tpayne/CloudRun/actions/workflows/maven.yml)
 
+Introduction to Cloud Run
+-------------------------
+The following is a training video I put together for Cloud Run...
+
+[![Intro into Cloud Run](https://img.youtube.com/vi/jKO0CGSdbxI/0.jpg)](https://www.youtube.com/watch?v=jKO0CGSdbxI)
+
 Samples
 -------
 The following samples are provided. You can use the `Run on Cloud` button to build and deploy the
