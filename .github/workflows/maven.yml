@@ -36,23 +36,27 @@ jobs:
     
     steps:
     - uses: actions/checkout@v2
+    - name: Login to DockerHub...
+      run: |
+        echo ${{ secrets.DOCKERHUB_PASSWORD }} | \
+          docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
     - name: Build SimpleSpringApp with Docker
       run: |
         (cd samples/SimpleSpringApp && \
-         docker build . -t cloudrun-simplespringapp:1.0 && \
-         docker rmi cloudrun-simplespringapp:1.0)
+         docker build . -t ${{ secrets.DOCKERHUB_USERNAME }}/cloudrun-simplespringapp:1.0 && \
+         docker push ${{ secrets.DOCKERHUB_USERNAME }}/cloudrun-simplespringapp:1.0)
     - name: Build FileSampleApp with Docker
       run: |
         (cd samples/FileSampleApp && \
-         docker build . -t cloudrun-filesampleapp:1.0 && \
-         docker rmi cloudrun-filesampleapp:1.0)     
+         docker build . -t ${{ secrets.DOCKERHUB_USERNAME }}/cloudrun-filesampleapp:1.0 && \
+         docker push ${{ secrets.DOCKERHUB_USERNAME }}/cloudrun-filesampleapp:1.0)     
     - name: Build StorageGCSSample with Docker
       run: |
         (cd samples/StorageGCSSample && \
-         docker build . -t cloudrun-storagesampleapp:1.0 && \
-         docker rmi cloudrun-storagesampleapp:1.0)          
+         docker build . -t ${{ secrets.DOCKERHUB_USERNAME }}/cloudrun-storagesampleapp:1.0 && \
+         docker push ${{ secrets.DOCKERHUB_USERNAME }}/cloudrun-storagesampleapp:1.0)          
     - name: Build GCESample with Docker
       run: |
         (cd samples/GCESample && \
-         docker build . -t cloudrun-gcesampleapp:1.0 && \
-         docker rmi cloudrun-gcesampleapp:1.0)
+         docker build . -t ${{ secrets.DOCKERHUB_USERNAME }}/cloudrun-gcesampleapp:1.0 && \
+         docker push ${{ secrets.DOCKERHUB_USERNAME }}/cloudrun-gcesampleapp:1.0)
