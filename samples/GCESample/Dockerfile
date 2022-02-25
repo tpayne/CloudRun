@@ -10,8 +10,9 @@ COPY src ./src
 RUN mvn package 
 
 FROM adoptopenjdk/openjdk11:alpine-slim
-RUN addgroup -S spring && adduser -S spring -G spring
-USER spring:spring
+ARG account=spring
+RUN addgroup -S ${account} && adduser -S ${account} -G ${account}
+USER ${account}:${account}
 
 ARG JAR_FILE=/app/target/samples.cloudrun-gcesample-1.0-SNAPSHOT.jar
 COPY --from=imagebuilder ${JAR_FILE} /samples.cloudrun-gcesample-1.0-SNAPSHOT.jar

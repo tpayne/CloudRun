@@ -10,15 +10,17 @@ COPY src ./src
 RUN mvn package 
 
 FROM adoptopenjdk/openjdk11:alpine-slim
-RUN addgroup -S spring && adduser -S spring -G spring
+
+ARG account=spring
+RUN addgroup -S ${account} && adduser -S ${account} -G ${account}
 
 RUN mkdir /uploads
-RUN chown -R spring:spring /uploads
+RUN chown -R ${account}:${account} /uploads
 RUN chmod -R o+rwx /uploads
 
 VOLUME /uploads
 
-USER spring:spring
+USER ${account}:${account}
 
 ARG JAR_FILE=/app/target/samples.cloudrun-fileapp-1.0-SNAPSHOT.jar
 COPY --from=imagebuilder ${JAR_FILE} /samples.cloudrun-fileapp-1.0-SNAPSHOT.jar
