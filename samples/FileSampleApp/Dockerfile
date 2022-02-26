@@ -2,14 +2,16 @@
 # and putting it into a docker image...
 
 FROM maven:3.8-jdk-11 as imagebuilder
+RUN apt-get update
 
 WORKDIR /app
 COPY pom.xml .
 COPY src ./src
 
-RUN mvn package 
+RUN mvn package
 
 FROM adoptopenjdk/openjdk11:alpine-slim
+RUN apt-get update
 
 ARG account=spring
 RUN addgroup -S ${account} && adduser -S ${account} -G ${account}
