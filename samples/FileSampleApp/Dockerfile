@@ -8,10 +8,10 @@ WORKDIR /app
 COPY pom.xml .
 COPY src ./src
 
-RUN mvn package
+RUN mvn -q package
 
 FROM adoptopenjdk/openjdk11:alpine-slim
-RUN apt-get update
+RUN apk add --upgrade apk-tools && apk upgrade --available
 
 ARG account=spring
 RUN addgroup -S ${account} && adduser -S ${account} -G ${account}
