@@ -21,7 +21,7 @@ Cloud Run Status: Ready for use
 
 Build Status
 ------------
-[![Java CI with Maven](https://github.com/tpayne/CloudRun/actions/workflows/maven.yml/badge.svg)](https://github.com/tpayne/CloudRun/actions/workflows/maven.yml)
+[![Java CI with Maven](https://github.com/tpayne/CloudRun/actions/workflows/main.yml/badge.svg)](https://github.com/tpayne/CloudRun/actions/workflows/main.yml)
 
 Samples
 -------
