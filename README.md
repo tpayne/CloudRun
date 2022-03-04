@@ -22,6 +22,7 @@ Cloud Run Status: Ready for use
 Build Status
 ------------
 [![Java CI with Maven](https://github.com/tpayne/CloudRun/actions/workflows/main.yml/badge.svg)](https://github.com/tpayne/CloudRun/actions/workflows/main.yml)
+[![GitHub CR Build and Push](https://github.com/tpayne/CloudRun/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/tpayne/CloudRun/actions/workflows/docker-publish.yml)
 
 Samples
 -------
