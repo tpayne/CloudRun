@@ -16,7 +16,7 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web:2.2.4.RELEASE'
-    testImplementation 'junit:junit:3.8.1'
+    testImplementation 'junit:junit:3.8.2'
     testImplementation 'org.springframework.boot:spring-boot-starter-test:2.2.4.RELEASE'
 }
 
