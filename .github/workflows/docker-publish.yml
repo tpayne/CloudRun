@@ -60,7 +60,7 @@ jobs:
       # https://github.com/docker/build-push-action
       - name: Build and Push cloudrun-gcesampleapp Docker image
         id: build-and-push
-        uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+        uses: docker/build-push-action@175d02bffea74695e96b351069ac938b338802f9
         with:
           context: samples/GCESample/
           push: ${{ github.event_name != 'pull_request' }}
@@ -79,7 +79,7 @@ jobs:
       # https://github.com/docker/build-push-action
       - name: Build and Push cloudrun-storagesampleapp Docker image
         id: build-and-push1
-        uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+        uses: docker/build-push-action@175d02bffea74695e96b351069ac938b338802f9
         with:
           context: samples/StorageGCSSample/
           push: ${{ github.event_name != 'pull_request' }}
@@ -98,7 +98,7 @@ jobs:
       # https://github.com/docker/build-push-action
       - name: Build and Push cloudrun-filesampleapp Docker image
         id: build-and-push2
-        uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+        uses: docker/build-push-action@175d02bffea74695e96b351069ac938b338802f9
         with:
           context: samples/FileSampleApp/
           push: ${{ github.event_name != 'pull_request' }}
@@ -117,7 +117,7 @@ jobs:
       # https://github.com/docker/build-push-action
       - name: Build and Push cloudrun-simplespringapp Docker image
         id: build-and-push3
-        uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+        uses: docker/build-push-action@175d02bffea74695e96b351069ac938b338802f9
         with:
           context: samples/SimpleSpringApp/
           push: ${{ github.event_name != 'pull_request' }}
