@@ -20,7 +20,7 @@
     <gcp.projectId>defaultGCPProjectId</gcp.projectId>
     <project.compute.version>v1-rev20221206-2.0.0</project.compute.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <dependency-check-maven.version>6.1.5</dependency-check-maven.version>
+    <dependency-check-maven.version>6.5.3</dependency-check-maven.version>
   </properties>
 
   <dependencies>
