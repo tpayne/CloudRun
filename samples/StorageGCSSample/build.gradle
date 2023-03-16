@@ -16,9 +16,9 @@ repositories {
 
 dependencies {
     implementation 'com.google.cloud:google-cloud-storage:1.118.1'
-    implementation 'org.springframework.boot:spring-boot-starter-web:2.2.4.RELEASE'
+    implementation 'org.springframework.boot:spring-boot-starter-web:2.7.9'
     testImplementation 'junit:junit:3.8.2'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.2.4.RELEASE'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.7.9'
 }
 
 group = 'com.example.cloud.run'
