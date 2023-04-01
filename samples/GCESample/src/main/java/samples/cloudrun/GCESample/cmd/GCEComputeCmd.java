@@ -35,7 +35,7 @@ import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.http.HttpRequestInitializer;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.JsonFactory;
-import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.client.json.gson.GsonFactory;
 
 import com.google.auth.http.HttpCredentialsAdapter;
 import com.google.auth.oauth2.GoogleCredentials;
@@ -57,7 +57,7 @@ public class GCEComputeCmd {
     private static final Logger LOGGER = Logger.getLogger(GCEComputeCmd.class.getName());
 
     private static HttpTransport httpTransport = null;
-    private static JsonFactory jsonFactoryInstance = null;
+    private static GsonFactory jsonFactoryInstance = null;
     private static Compute compute = null;
     
     private static final String APPLICATION_NAME = "";
@@ -81,7 +81,7 @@ public class GCEComputeCmd {
             }
 
             if (jsonFactoryInstance == null) {
-                jsonFactoryInstance = JacksonFactory.getDefaultInstance();
+                jsonFactoryInstance = GsonFactory.getDefaultInstance();
             }
             if (httpTransport == null) {
                 httpTransport = GoogleNetHttpTransport.newTrustedTransport();
