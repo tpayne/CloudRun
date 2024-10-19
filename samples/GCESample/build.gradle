@@ -16,7 +16,7 @@ repositories {
 
 dependencies {
     implementation 'com.google.auth:google-auth-library-oauth2-http:1.16.1'
-    implementation 'com.google.apis:google-api-services-compute:v1-rev20230403-2.0.0'
+    implementation 'com.google.apis:google-api-services-compute:v1-rev20241008-2.0.0'
     implementation 'org.springframework.boot:spring-boot-starter-web:3.0.5'
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.springframework.boot:spring-boot-starter-test:3.0.5'
