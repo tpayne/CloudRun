@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.example.cloud.cloudrun</groupId>
+  <artifactId>samples.gcp.cloudrun</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
+  <properties>
+    <dependency-check-maven.version>11.0.0</dependency-check-maven.version>
+  </properties>
+    
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>3.0.5</version>
+  </parent>
+  
+  <developers>
+    <developer>
+      <id>tim.tpayne@gmail.com</id>
+      <name>Tim Payne</name>
+      <organization>TBD</organization>
+    </developer>
+  </developers>
+    
+  <!--  To run a security/vulnerability check run 'mvn clean install -Psecurity-scans' 
+        The process will take about 5-15 mins to run, so do not do it as part of normal build
+        
+        For more info, see 
+        https://itnext.io/owasp-dependency-check-maven-vulnerabilities-java-898a9cf99f5e
+  -->
+  <profiles>
+    <profile>
+      <id>security-scans</id>
+      <build>
+        <plugins>
+          <!-- Security scanners -->
+          <plugin>
+            <groupId>com.sonatype.clm</groupId>
+            <artifactId>clm-maven-plugin</artifactId>
+            <version>2.48.4-07</version>
+            <executions>
+              <execution>
+                <goals>
+                <goal>index</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>        
+          <plugin>
+            <groupId>org.owasp</groupId>
+            <artifactId>dependency-check-maven</artifactId>
+            <version>${dependency-check-maven.version}</version>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>check</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+
+  <modules>
+    <module>FileSampleApp</module>
+    <module>GCESample</module>
+    <module>SimpleSpringApp</module>
+    <module>StorageGCSSample</module>
+  </modules>
+</project>
