@@ -13,4 +13,5 @@ jobs:
     - uses: actions/checkout@v3
     - name: Test build
       run: |
-        cd samples && docker build .
+        echo "Performing a test build on the code..."
+        cd samples && docker build . -f Dockerfile
