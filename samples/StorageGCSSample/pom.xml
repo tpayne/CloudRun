@@ -8,11 +8,11 @@
   <url>http://maven.apache.org</url>
 
   <groupId>com.example.cloud.cloudrun</groupId>
-  <artifactId>samples.gcp.cloudrun-storagegcssample</artifactId>
+  <artifactId>samples.cloudrun-storagegcssample</artifactId>
 
   <parent>
     <groupId>com.example.cloud.cloudrun</groupId>
-    <artifactId>samples.gcp.cloudrun</artifactId>
+    <artifactId>samples.cloudrun</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
