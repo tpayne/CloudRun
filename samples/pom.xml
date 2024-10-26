@@ -6,7 +6,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.example.cloud.cloudrun</groupId>
-  <artifactId>samples.gcp.cloudrun</artifactId>
+  <artifactId>samples.cloudrun</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
 
