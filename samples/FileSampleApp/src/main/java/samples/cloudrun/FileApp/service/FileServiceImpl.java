@@ -40,15 +40,15 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public void init() {
-    try {
+        try {
             LOGGER.log(Level.FINE, "init(): Create directory=\"{0}\"",
-                root.toString());
+                    root.toString());
             if (!Files.exists(root)) {
                 Files.createDirectory(root);
             }
         } catch (FileAlreadyExistsException e) {
         } catch (IOException e) {
-            throw new RuntimeException("The root upload directory '"+root.toString()+"' could not be created");
+            throw new RuntimeException("The root upload directory '" + root.toString() + "' could not be created");
         }
     }
 
