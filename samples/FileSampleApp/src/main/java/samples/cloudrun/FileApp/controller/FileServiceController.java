@@ -35,8 +35,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
-import org.springframework.web.servlet.HandlerExceptionResolver;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
@@ -50,42 +48,27 @@ import samples.cloudrun.FileApp.message.ResponseMessage;
 import samples.cloudrun.FileApp.service.FileService;
 
 @Controller
-public class FileServiceController implements HandlerExceptionResolver {
+public class FileServiceController {
 
     private static final Logger LOGGER = Logger.getLogger(FileServiceController.class.getName());
 
     @Autowired
     FileService fileService;
 
-    @RequestMapping(value = "/upload", method = RequestMethod.GET)
-    public String getImageView() {
-        return "file";
-    }
-
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
-    public ModelAndView uploadFile(MultipartFile file) throws IOException {
+    public ResponseEntity<ResponseMessage> uploadFile(@RequestParam("file") MultipartFile file) {
         String message = "";
-        ModelAndView modelAndView = new ModelAndView("file");
         try {
             fileService.save(file);
-            modelAndView.getModel().put("message", "File uploaded");
-            return modelAndView;
+            message = "File uploaded successfully: " + file.getOriginalFilename();
+            return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
+        } catch (MaxUploadSizeExceededException e) {
+            message = "Filesize upload error: " + e.getMessage();
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message));
         } catch (Exception e) {
-            modelAndView.getModel().put("message", "File upload failed: " + e.getMessage());
-            return modelAndView;
+            message = "File upload failed: " + e.getMessage();
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message));
         }
-    }
-
-    @Override
-    public ModelAndView resolveException(HttpServletRequest request,
-            HttpServletResponse response,
-            Object object,
-            Exception e) {
-        ModelAndView modelAndView = new ModelAndView("file");
-        if (e instanceof MaxUploadSizeExceededException) {
-            modelAndView.getModel().put("message", "File size exceeds limit!");
-        }
-        return modelAndView;
     }
 
     @GetMapping("/files")
