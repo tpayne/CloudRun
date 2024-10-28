@@ -59,24 +59,24 @@ public class GCEComputeCmd {
     private static HttpTransport httpTransport = null;
     private static GsonFactory jsonFactoryInstance = null;
     private static Compute compute = null;
-    
+
     private static final String APPLICATION_NAME = "";
     private static final long OPERATION_TIMEOUT_MILLIS = 60 * 1000;
 
     public GCEComputeCmd() {
         try {
             init();
-        } catch(Exception e) {
+        } catch (Exception e) {
         }
     }
 
     // Method to initialise the class
-    private void init() 
-        throws IOException {
+    private void init()
+            throws IOException {
         try {
             // Initialise the class...
             if (httpTransport != null && jsonFactoryInstance != null &&
-                compute != null) {
+                    compute != null) {
                 return;
             }
 
@@ -102,25 +102,25 @@ public class GCEComputeCmd {
                 HttpRequestInitializer requestInitializer = new HttpCredentialsAdapter(credential);
                 // Create Compute Engine object for listing instances.
                 compute = new Compute.Builder(httpTransport, jsonFactoryInstance, requestInitializer)
-                              .setApplicationName(APPLICATION_NAME)
-                              .build();
+                        .setApplicationName(APPLICATION_NAME)
+                        .build();
             }
-        } catch(Exception e) {
-            LOGGER.severe("init() :"+e.getMessage());
+        } catch (Exception e) {
+            LOGGER.severe("init() :" + e.getMessage());
             httpTransport = null;
             jsonFactoryInstance = null;
             compute = null;
             throw new IOException(e.getMessage());
         }
-        return;       
+        return;
     }
 
     private static Operation.Error blockUntilComplete(
-        final String projectId,
-        Compute compute, 
-        Operation operation, 
-        long timeout) 
-        throws Exception {
+            final String projectId,
+            Compute compute,
+            Operation operation,
+            long timeout)
+            throws Exception {
 
         long start = System.currentTimeMillis();
         final long pollInterval = 5 * 1000;
@@ -152,23 +152,23 @@ public class GCEComputeCmd {
     }
 
     // Create an instance implementation
-    private static Operation create(final String projectId, GCEInstance gceInstance) 
-        throws RuntimeException {
+    private static Operation create(final String projectId, GCEInstance gceInstance)
+            throws RuntimeException {
 
         try {
             Instance instance = new Instance();
             instance.setName(gceInstance.getInstanceName());
             instance.setMachineType(
-                String.format(
-                    "https://www.googleapis.com/compute/v1/projects/%s/zones/%s/machineTypes/%s",
-                    projectId, gceInstance.getZone(), gceInstance.getMachineType()));
+                    String.format(
+                            "https://www.googleapis.com/compute/v1/projects/%s/zones/%s/machineTypes/%s",
+                            projectId, gceInstance.getZone(), gceInstance.getMachineType()));
             // Add Network Interface to be used by VM Instance.
-            LOGGER.info("create() "+instance.getMachineType());
+            LOGGER.info("create() " + instance.getMachineType());
             NetworkInterface ifc = new NetworkInterface();
             ifc.setNetwork(
-                String.format(
-                    "https://www.googleapis.com/compute/v1/projects/%s/global/networks/default",
-                    projectId));
+                    String.format(
+                            "https://www.googleapis.com/compute/v1/projects/%s/global/networks/default",
+                            projectId));
 
             List<AccessConfig> configs = new ArrayList<>();
             AccessConfig config = new AccessConfig();
@@ -186,17 +186,19 @@ public class GCEComputeCmd {
             AttachedDiskInitializeParams params = new AttachedDiskInitializeParams();
             // Assign the Persistent Disk the same name as the VM Instance.
             params.setDiskName(gceInstance.getInstanceName());
-            // Specify the source operating system machine image to be used by the VM Instance.
+            // Specify the source operating system machine image to be used by the VM
+            // Instance.
             params.setSourceImage(DefaultValues.SOURCE_IMAGE_PREFIX + gceInstance.getImageName());
             // Specify the disk type as Standard Persistent Disk
             params.setDiskType(
-                String.format(
-                    "https://www.googleapis.com/compute/v1/projects/%s/zones/%s/diskTypes/pd-standard",
-                    projectId, gceInstance.getZone()));
+                    String.format(
+                            "https://www.googleapis.com/compute/v1/projects/%s/zones/%s/diskTypes/pd-standard",
+                            projectId, gceInstance.getZone()));
             disk.setInitializeParams(params);
             instance.setDisks(Collections.singletonList(disk));
 
-            // Initialize the service account to be used by the VM Instance and set the API access scopes.
+            // Initialize the service account to be used by the VM Instance and set the API
+            // access scopes.
             ServiceAccount account = new ServiceAccount();
             account.setEmail("default");
             List<String> scopes = new ArrayList<>();
@@ -210,7 +212,7 @@ public class GCEComputeCmd {
             // Metadata.Items item = new Metadata.Items();
             // item.setKey("startup-script-url");
             // If you put a script called "vm-startup.sh" in this Google Cloud Storage
-            // bucket, it will execute on VM startup.  This assumes you've created a
+            // bucket, it will execute on VM startup. This assumes you've created a
             // bucket named the same as your PROJECT_ID.
             // For info on creating buckets see:
             // https://cloud.google.com/storage/docs/cloud-console#_creatingbuckets
@@ -218,29 +220,28 @@ public class GCEComputeCmd {
             // meta.setItems(Collections.singletonList(item));
             // instance.setMetadata(meta);
 
-            Compute.Instances.Insert insert = compute.instances().insert(projectId, 
-                                                                         gceInstance.getZone(), 
-                                                                         instance);
+            Compute.Instances.Insert insert = compute.instances().insert(projectId,
+                    gceInstance.getZone(),
+                    instance);
 
             return insert.execute();
 
-        } catch(Exception e) {
-            LOGGER.severe("create() :"+e.getMessage());
+        } catch (Exception e) {
+            LOGGER.severe("create() :" + e.getMessage());
             throw new RuntimeException(e.getMessage());
         }
     }
 
     // Delete an instance implementation
-    private static Operation delete(final String projectId, GCEInstance gceInstance) 
-        throws RuntimeException {
+    private static Operation delete(final String projectId, GCEInstance gceInstance)
+            throws RuntimeException {
 
         try {
-            Compute.Instances.Delete delete =
-                compute.instances().delete(projectId, gceInstance.getZone(), 
-                                           gceInstance.getInstanceName());
+            Compute.Instances.Delete delete = compute.instances().delete(projectId, gceInstance.getZone(),
+                    gceInstance.getInstanceName());
             return delete.execute();
-        } catch(Exception e) {
-            LOGGER.severe("delete() :"+e.getMessage());
+        } catch (Exception e) {
+            LOGGER.severe("delete() :" + e.getMessage());
             throw new RuntimeException(e.getMessage());
         }
     }
@@ -260,31 +261,31 @@ public class GCEComputeCmd {
                 }
             }
             return null;
-        } catch(Exception e) {
-            LOGGER.severe("getInstance() :"+e.getMessage());
+        } catch (Exception e) {
+            LOGGER.severe("getInstance() :" + e.getMessage());
             return null;
         }
     }
 
     // Get instance
-    private Map<String,List<Object>> list(final String projectId) {
+    private Map<String, List<Object>> list(final String projectId) {
         try {
             Compute.Zones.List zones = compute.zones().list(projectId);
             ZoneList list = zones.execute();
             if (list.getItems() == null) {
                 return null;
             } else {
-                Map<String,List<Object>> mmap = new HashMap<String,List<Object>>();
+                Map<String, List<Object>> mmap = new HashMap<String, List<Object>>();
                 for (Zone zone : list.getItems()) {
-                    List<Object> insList = list(projectId,zone.getName());
+                    List<Object> insList = list(projectId, zone.getName());
                     if (insList != null) {
-                        mmap.put(zone.getName(),insList);
+                        mmap.put(zone.getName(), insList);
                     }
-                }   
+                }
                 return mmap;
             }
-        } catch(Exception e) {
-            LOGGER.severe("list() :"+e.getMessage());
+        } catch (Exception e) {
+            LOGGER.severe("list() :" + e.getMessage());
             return null;
         }
     }
@@ -300,63 +301,63 @@ public class GCEComputeCmd {
                 List<Object> listInst = new ArrayList<Object>(list.getItems());
                 return listInst;
             }
-        } catch(Exception e) {
-            LOGGER.severe("list() :"+e.getMessage());
+        } catch (Exception e) {
+            LOGGER.severe("list() :" + e.getMessage());
             return null;
         }
     }
 
     // List all instances
     public List<Object> listInstances(final String projectId, final String region) {
-        return(list(projectId,region));
+        return (list(projectId, region));
     }
 
     // List all instances
-    public Map<String,List<Object>> listInstances(final String projectId) {
-        return(list(projectId));
+    public Map<String, List<Object>> listInstances(final String projectId) {
+        return (list(projectId));
     }
 
     // Describe instance
     public Instance describeInstance(final String projectId, final String region, final String instanceName) {
-        return(getInstance(projectId,region,instanceName));
+        return (getInstance(projectId, region, instanceName));
     }
 
     // Create an instance
     public boolean createInstance(final String projectId, GCEInstance gceInstance)
-        throws RuntimeException {
+            throws RuntimeException {
 
         try {
             init();
-            Operation op = create(projectId,gceInstance);
-            Operation.Error error = blockUntilComplete(projectId, compute, 
-                                                       op, OPERATION_TIMEOUT_MILLIS);
+            Operation op = create(projectId, gceInstance);
+            Operation.Error error = blockUntilComplete(projectId, compute,
+                    op, OPERATION_TIMEOUT_MILLIS);
             if (error != null) {
                 throw new RuntimeException(error.toPrettyString());
             }
-            Instance gce = getInstance(projectId,gceInstance.getZone(),gceInstance.getInstanceName());
+            Instance gce = getInstance(projectId, gceInstance.getZone(), gceInstance.getInstanceName());
             if (gce == null) {
                 return false;
             }
-            LOGGER.info("createInstance() :"+gce.toPrettyString());
+            LOGGER.info("createInstance() :" + gce.toPrettyString());
             return true;
-        } catch(Exception e) {
-            LOGGER.severe("createInstance() :"+e.getMessage());
+        } catch (Exception e) {
+            LOGGER.severe("createInstance() :" + e.getMessage());
             throw new RuntimeException(e.getMessage());
         }
     }
 
     // Delete an instance
     public boolean deleteInstance(final String projectId, GCEInstance gceInstance)
-        throws RuntimeException {
+            throws RuntimeException {
 
         try {
             init();
-            Operation op = delete(projectId,gceInstance);
-            Operation.Error error = blockUntilComplete(projectId, compute, 
-                                                       op, OPERATION_TIMEOUT_MILLIS);
+            Operation op = delete(projectId, gceInstance);
+            Operation.Error error = blockUntilComplete(projectId, compute,
+                    op, OPERATION_TIMEOUT_MILLIS);
             return (error == null);
-        } catch(Exception e) {
-            LOGGER.severe("deleteInstance() :"+e.getMessage());
+        } catch (Exception e) {
+            LOGGER.severe("deleteInstance() :" + e.getMessage());
             throw new RuntimeException(e.getMessage());
         }
     }
