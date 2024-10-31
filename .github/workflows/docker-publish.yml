@@ -18,7 +18,9 @@ env:
   # IMAGE_NAME: ${{ github.repository }}
   # github.repository as <account>/<repo>
 
-concurrency: ${{ github.ref }}
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
   buildPush:

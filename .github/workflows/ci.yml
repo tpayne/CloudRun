@@ -6,7 +6,9 @@ name: Test Build using Docker
 on:
   push:
 
-concurrency: ${{ github.ref }}
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
   testBuildCode:
