@@ -1,6 +1,6 @@
 # This is a docker make file for building this Maven app
 
-FROM maven:3.9.9-eclipse-temurin-21-jammy as imagebuilder
+FROM maven:3.9.9-eclipse-temurin-21-jammy AS imagebuilder
 RUN apt-get update
 
 WORKDIR /build
