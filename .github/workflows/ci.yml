@@ -5,7 +5,9 @@ name: Test Build using Docker
 
 on:
   push:
-    
+
+concurrency: ${{ github.ref }}
+
 jobs:
   testBuildCode:
     runs-on: ubuntu-latest
