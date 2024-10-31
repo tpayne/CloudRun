@@ -67,7 +67,9 @@ Build Instructions using Docker
 -------------------------------
 You can also build this sample using Docker. To do this, run the following...
 
-    docker build . [-t gcr.io/$(gcloud config get-value project)/samples.cloudrun-gcesample:1.0]
+    docker build . \
+        -f GCESample/Dockerfile \
+        [-t gcr.io/$(gcloud config get-value project)/samples.cloudrun-gcesample:1.0]
 
 This will compile and package the Docker image purely using Docker.
 
