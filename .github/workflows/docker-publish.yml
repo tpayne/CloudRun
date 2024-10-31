@@ -50,7 +50,7 @@ jobs:
       # https://github.com/docker/metadata-action
       - name: Extract cloudrun-gcesampleapp Docker metadata
         id: meta
-        uses: docker/metadata-action@62339db73c56dd749060f65a6ebb93a6e056b755
+        uses: docker/metadata-action@0de3687b53cd804b63dd87819f7bda043569ce4a
         with:
           images: ${{ env.REGISTRY }}/${{ github.actor }}/cloudrun-gcesampleapp
 
@@ -70,7 +70,7 @@ jobs:
       # https://github.com/docker/metadata-action
       - name: Extract cloudrun-storagesampleapp Docker metadata
         id: meta1
-        uses: docker/metadata-action@62339db73c56dd749060f65a6ebb93a6e056b755
+        uses: docker/metadata-action@0de3687b53cd804b63dd87819f7bda043569ce4a
         with:
           images: ${{ env.REGISTRY }}/${{ github.actor }}/cloudrun-storagesampleapp
 
@@ -90,7 +90,7 @@ jobs:
       # https://github.com/docker/metadata-action
       - name: Extract cloudrun-filesampleapp Docker metadata
         id: meta2
-        uses: docker/metadata-action@62339db73c56dd749060f65a6ebb93a6e056b755
+        uses: docker/metadata-action@0de3687b53cd804b63dd87819f7bda043569ce4a
         with:
           images: ${{ env.REGISTRY }}/${{ github.actor }}/cloudrun-filesampleapp
 
@@ -110,7 +110,7 @@ jobs:
       # https://github.com/docker/metadata-action
       - name: Extract cloudrun-simplespringapp Docker metadata
         id: meta3
-        uses: docker/metadata-action@62339db73c56dd749060f65a6ebb93a6e056b755
+        uses: docker/metadata-action@0de3687b53cd804b63dd87819f7bda043569ce4a
         with:
           images: ${{ env.REGISTRY }}/${{ github.actor }}/cloudrun-simplespringapp
 
