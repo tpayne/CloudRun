@@ -56,105 +56,107 @@ public class GCEInstanceControllerCmd {
 
     // Shared logger for messages
     private static final Logger LOGGER = Logger.getLogger(GCEInstanceControllerCmd.class.getName());
-    
-    // This is a potential security hole as the instance is shared, but makes start times quicker...
-    // Ideally, not an approach to use with unauthenticated exposed services, but okay for a demo...
+
+    // This is a potential security hole as the instance is shared, but makes start
+    // times quicker...
+    // Ideally, not an approach to use with unauthenticated exposed services, but
+    // okay for a demo...
     private static GCEComputeCmd cmd = new GCEComputeCmd();
 
     // Version checker
     @GetMapping("/version")
     public String versionApp() {
         return String.format("<h2>Version 1.0</h2>");
-    } 
+    }
 
     // Created instance cache lister
     @GetMapping("/list")
-    public Map<String,Object> list() {
-        Map<String,Object> response = new HashMap<String, Object>();
+    public Map<String, Object> list() {
+        Map<String, Object> response = new HashMap<String, Object>();
         response.put("List of created instances", service.getComputeInstances());
         return response;
-    } 
+    }
 
     // URL mapper for getting details of a specific instance from a full URL
     @GetMapping("/describe/{projectId:.+}/{zone:.+}/{instanceName:.+}")
-    public Map<String,Object> describeInstanceURL(@PathVariable String projectId, 
-                                               @PathVariable String zone,
-                                               @PathVariable String instanceName) {    
-        Map<String,Object> response = new HashMap<String, Object>();
-        response.put("Instance:", cmd.describeInstance(projectId,zone,instanceName));
+    public Map<String, Object> describeInstanceURL(@PathVariable String projectId,
+            @PathVariable String zone,
+            @PathVariable String instanceName) {
+        Map<String, Object> response = new HashMap<String, Object>();
+        response.put("Instance:", cmd.describeInstance(projectId, zone, instanceName));
         return response;
-    } 
+    }
 
     // Get the details of a specific instance from query params specified to URL
     @GetMapping("/describe")
-    public Map<String,Object> describeInstance(@RequestParam String projectId, 
-                                               @RequestParam String zone,
-                                               @RequestParam String instanceName) {
-        Map<String,Object> response = new HashMap<String, Object>();
-        response.put("Instance:", cmd.describeInstance(projectId,zone,instanceName));
+    public Map<String, Object> describeInstance(@RequestParam String projectId,
+            @RequestParam String zone,
+            @RequestParam String instanceName) {
+        Map<String, Object> response = new HashMap<String, Object>();
+        response.put("Instance:", cmd.describeInstance(projectId, zone, instanceName));
         return response;
-    } 
+    }
 
-    // URL mapper for listing details of all instances for a project/zone from a full URL
+    // URL mapper for listing details of all instances for a project/zone from a
+    // full URL
     @GetMapping("/listAll/{projectId:.+}/{zone:.+}")
-    public Map<String,List<Object>> listAllURL(@PathVariable String projectId, 
-                                               @PathVariable String zone) {
-        Map<String,List<Object>> response = new HashMap<String, List<Object>>();
-        response.put("List of all instances", cmd.listInstances(projectId,zone));
+    public Map<String, List<Object>> listAllURL(@PathVariable String projectId,
+            @PathVariable String zone) {
+        Map<String, List<Object>> response = new HashMap<String, List<Object>>();
+        response.put("List of all instances", cmd.listInstances(projectId, zone));
         return response;
     }
 
     // URL mapper for listing details of all instances for a project from a full URL
     @GetMapping("/listAll/{projectId:.+}")
-    public Map<String,Map<String,List<Object>>> listAllURL(@PathVariable String projectId) {
-        Map<String,Map<String,List<Object>>> response = new HashMap<String, Map<String,List<Object>>>();
+    public Map<String, Map<String, List<Object>>> listAllURL(@PathVariable String projectId) {
+        Map<String, Map<String, List<Object>>> response = new HashMap<String, Map<String, List<Object>>>();
         response.put("List of all instances", cmd.listInstances(projectId));
         return response;
     }
 
-    // List details of all instances for a project/zone provided by query params specified to URL 
+    // List details of all instances for a project/zone provided by query params
+    // specified to URL
     @GetMapping("/listAll")
-    public Map<String,List<Object>> listAll(@RequestParam String projectId, 
-                                            @RequestParam String zone) {
-        Map<String,List<Object>> response = new HashMap<String, List<Object>>();
-        response.put("List of all instances", cmd.listInstances(projectId,zone));
+    public Map<String, List<Object>> listAll(@RequestParam String projectId,
+            @RequestParam String zone) {
+        Map<String, List<Object>> response = new HashMap<String, List<Object>>();
+        response.put("List of all instances", cmd.listInstances(projectId, zone));
         return response;
-    } 
+    }
 
     // URL mapper for deleting an instance specified by a full URL
     @DeleteMapping("/{projectId:.+}/{zone:.+}/{instanceName:.+}")
-    public ResponseEntity<ResponseMessage>
-        deleteInstance(@PathVariable String projectId, 
-                       @PathVariable String zone,
-                       @PathVariable String instanceName) {
+    public ResponseEntity<ResponseMessage> deleteInstance(@PathVariable String projectId,
+            @PathVariable String zone,
+            @PathVariable String instanceName) {
 
         String message = "";
         try {
             // Instantiates a client
             GCEInstance instance = new GCEInstance(instanceName,
-                                                   zone);
-            
-            if (!cmd.deleteInstance(projectId,instance)) {
+                    zone);
+
+            if (!cmd.deleteInstance(projectId, instance)) {
                 message = "Instance deletion failed";
-                return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message));                
+                return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message));
             }
 
             service.getComputeInstances().remove(instance.getInstanceName());
             LOGGER.info("deleteInstance() : Instance deleted");
             message = "Instance deleted successfully";
             return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
-        } catch(Exception e) {
-            LOGGER.severe("deleteInstance() :"+e.getMessage());
+        } catch (Exception e) {
+            LOGGER.severe("deleteInstance() :" + e.getMessage());
             message = "Instance deleted failed with error: " + e.getMessage();
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message));
-        }  
-    }            
-    
+        }
+    }
+
     // Naught usage - not standard!
     // Post mapper for JSON slurper to delete instance details based on JSON text
-    @PostMapping(path= "/delete", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResponseMessage> 
-        deleteInstance(
+    @PostMapping(path = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResponseMessage> deleteInstance(
             @RequestHeader(name = "X-COM-PERSIST", required = false) String headerPersist,
             @RequestHeader(name = "X-COM-LOCATION", defaultValue = "USA") String headerLocation,
             @RequestBody deleteComputeInstanceParams params) {
@@ -163,28 +165,27 @@ public class GCEInstanceControllerCmd {
         try {
             // Instantiates a client
             GCEInstance instance = new GCEInstance(params.getInstanceName(),
-                                                   params.getZone());
-            
-            if (!cmd.deleteInstance(params.getProjectId(),instance)) {
+                    params.getZone());
+
+            if (!cmd.deleteInstance(params.getProjectId(), instance)) {
                 message = "Instance deletion failed";
-                return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message));                
+                return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message));
             }
 
             service.getComputeInstances().remove(instance.getInstanceName());
             LOGGER.info("deleteInstance() : Instance deleted");
             message = "Instance deleted successfully";
             return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
-        } catch(Exception e) {
-            LOGGER.severe("deleteInstance() :"+e.getMessage());
+        } catch (Exception e) {
+            LOGGER.severe("deleteInstance() :" + e.getMessage());
             message = "Instance deleted failed with error: " + e.getMessage();
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message));
-        }  
+        }
     }
 
     // Post mapper for JSON slurper to create instance details based on JSON text
-    @PostMapping(path= "/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResponseMessage> 
-        createInstance(
+    @PostMapping(path = "/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResponseMessage> createInstance(
             @RequestHeader(name = "X-COM-PERSIST", required = false) String headerPersist,
             @RequestHeader(name = "X-COM-LOCATION", defaultValue = "USA") String headerLocation,
             @RequestBody createComputeInstanceParams params) {
@@ -192,25 +193,25 @@ public class GCEInstanceControllerCmd {
         String message = "";
         try {
             GCEInstance gceins = new GCEInstance(params.getInstanceName(),
-                                                   params.getZone(),
-                                                   params.getImageSource(),
-                                                   params.getNetworkInterface(),
-                                                   params.getNetworkConfig(),
-                                                   params.getMachineType());
-            LOGGER.info("createInstance() :"+params.getProjectId()+" "+gceins.toString());
-            if (!cmd.createInstance(params.getProjectId(),gceins)) {
+                    params.getZone(),
+                    params.getImageSource(),
+                    params.getNetworkInterface(),
+                    params.getNetworkConfig(),
+                    params.getMachineType());
+            LOGGER.info("createInstance() :" + params.getProjectId() + " " + gceins.toString());
+            if (!cmd.createInstance(params.getProjectId(), gceins)) {
                 message = "Instance creation failed";
-                return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message));                
+                return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message));
             }
 
-            service.getComputeInstances().put(gceins.getInstanceName(),gceins);
+            service.getComputeInstances().put(gceins.getInstanceName(), gceins);
             LOGGER.info("createInstance() : Instance created");
             message = "Instance created successfully";
             return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
-        } catch(Exception e) {
-            LOGGER.severe("createInstance() :"+e.getMessage());
+        } catch (Exception e) {
+            LOGGER.severe("createInstance() :" + e.getMessage());
             message = "Instance creation failed with error: " + e.getMessage();
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message));
-        }  
+        }
     }
 }

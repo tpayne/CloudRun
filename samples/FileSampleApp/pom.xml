@@ -9,11 +9,11 @@
   <url>http://maven.apache.org</url>
 
   <groupId>com.example.cloud.cloudrun</groupId>
-  <artifactId>samples.gcp.cloudrun-fileapp</artifactId>
+  <artifactId>samples.cloudrun-fileapp</artifactId>
 
   <parent>
     <groupId>com.example.cloud.cloudrun</groupId>
-    <artifactId>samples.gcp.cloudrun</artifactId>
+    <artifactId>samples.cloudrun</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 

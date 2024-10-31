@@ -44,7 +44,9 @@ Build Instructions using Docker
 -------------------------------
 You can also build this sample using Docker. To do this, run the following...
 
-    % docker build . [-t gcr.io/$(gcloud config get-value project)/samples.cloudrun-fileapp:1.0]
+    % docker build . \
+        -f FileSampleApp/Dockerfile \
+        [-t gcr.io/$(gcloud config get-value project)/samples.cloudrun-fileapp:1.0]
 
 This will compile and package the Docker image purely using Docker.
 
@@ -75,12 +77,14 @@ below...
 
 To test the app, do...
 
-    % ls > f.txt; ls -laR > f1.txt
-    % curl -F 'file=@f.txt' http://localhost:8080/upload; curl -F 'file=@f1.txt' http://localhost:8080/upload
-    % curl http://localhost:8080/files
+```bash
+    ls > f.txt; ls -laR > f1.txt
+    curl -F 'file=@f.txt' http://localhost:8080/upload
+    curl -F 'file=@f1.txt' http://localhost:8080/upload
+    curl http://localhost:8080/files
     [{"name":"f.txt","url":"http://localhost:8080/files/f.txt"},{"name":"f1.txt","url":"http://localhost:8080/files/f1.txt"}]
-    % curl http://localhost:8080/files/f.txt
-    ...
+    curl http://localhost:8080/files/f.txt
+```
 
 The contents of the file 'f.txt' will be displaid.
 

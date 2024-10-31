@@ -44,7 +44,9 @@ Build Instructions using Docker
 -------------------------------
 You can also build this sample using Docker. To do this, run the following...
 
-    % docker build . [-t gcr.io/$(gcloud config get-value project)/web8k-example:1.0]
+    % docker build . \
+        -f SimpleSpringApp/Dockerfile \
+        [-t gcr.io/$(gcloud config get-value project)/web8k-example:1.0]
 
 This will compile and package the Docker image purely using Docker.
 

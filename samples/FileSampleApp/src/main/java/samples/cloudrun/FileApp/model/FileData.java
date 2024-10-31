@@ -41,6 +41,6 @@ public class FileData {
     }
 
     public String toString() {
-        return "\"FileData [name "+ name + ", url = " + url + "]\"";
+        return "\"FileData [name " + name + ", url = " + url + "]\"";
     }
 }
