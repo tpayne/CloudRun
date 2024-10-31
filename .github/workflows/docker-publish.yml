@@ -60,11 +60,11 @@ jobs:
         id: build-and-push
         uses: docker/build-push-action@fdf7f43ecf7c1a5c7afe936410233728a8c2d9c2
         with:
-          context: samples/
+          context: .
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          file: GCESample/Dockerfile
+          file: samples/GCESample/Dockerfile
 
       # Extract metadata (tags, labels) for Docker
       # https://github.com/docker/metadata-action
@@ -80,11 +80,11 @@ jobs:
         id: build-and-push1
         uses: docker/build-push-action@fdf7f43ecf7c1a5c7afe936410233728a8c2d9c2
         with:
-          context: samples/
+          context: .
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta1.outputs.tags }}
           labels: ${{ steps.meta1.outputs.labels }}
-          file: StorageGCSSample/Dockerfile
+          file: samples/StorageGCSSample/Dockerfile
 
       # Extract metadata (tags, labels) for Docker
       # https://github.com/docker/metadata-action
@@ -100,11 +100,11 @@ jobs:
         id: build-and-push2
         uses: docker/build-push-action@fdf7f43ecf7c1a5c7afe936410233728a8c2d9c2
         with:
-          context: samples/
+          context: .
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta2.outputs.tags }}
           labels: ${{ steps.meta2.outputs.labels }}
-          file: FileSampleApp/Dockerfile
+          file: samples/FileSampleApp/Dockerfile
 
       # Extract metadata (tags, labels) for Docker
       # https://github.com/docker/metadata-action
@@ -120,8 +120,8 @@ jobs:
         id: build-and-push3
         uses: docker/build-push-action@fdf7f43ecf7c1a5c7afe936410233728a8c2d9c2
         with:
-          context: samples/
+          context: .
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta3.outputs.tags }}
           labels: ${{ steps.meta3.outputs.labels }}
-          file: SimpleSpringApp/Dockerfile
+          file: samples/SimpleSpringApp/Dockerfile
