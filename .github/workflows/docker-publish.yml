@@ -19,7 +19,7 @@ env:
   # github.repository as <account>/<repo>
 
 concurrency:
-  group: ${{ github.ref }}
+  group: ${{ github.ref }}Docker
   cancel-in-progress: false
 
 jobs:
