@@ -25,6 +25,7 @@ concurrency:
 jobs:
   buildPush:
     runs-on: ubuntu-latest
+    if: (github.ref == 'refs/heads/main')
     permissions:
         contents: read
         packages: write
