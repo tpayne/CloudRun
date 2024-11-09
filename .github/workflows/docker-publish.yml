@@ -20,7 +20,7 @@ env:
 
 concurrency:
   group: ${{ github.ref }}Docker
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   buildPush:
