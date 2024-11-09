@@ -5,7 +5,8 @@ name: Test Build using Docker
 
 on:
   push:
-
+  workflow_dispatch:
+  
 concurrency:
   group: ${{ github.ref }}CI
   cancel-in-progress: true
