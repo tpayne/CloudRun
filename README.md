@@ -57,6 +57,7 @@ The following are additional Cloud Run samples and documentation
 - https://cloud.google.com/run/docs/quickstarts
 - https://cloud.google.com/run/docs/how-to
 - https://docs.spring.io/spring-framework/docs/4.3.1.RELEASE/javadoc-api/index.html?overview-summary.html
+- https://console.cloud.google.com/artifacts/docker/serverless-runtimes/us-central1/google-22-full/runtimes%2Fjava21?pli=1
 
 Liability Warning
 -----------------
