@@ -131,4 +131,4 @@ The following references might be of interest...
 - https://cloud.google.com/run
 - https://spring.io/guides/gs/spring-boot-docker/
 
-[run_button_auto]: https://deploy.cloud.run/?git_repo=https://github.com/tpayne/CloudRun&dir=samples/SimpleSpringApp
+[run_button_auto]: https://deploy.cloud.run/?git_repo=https://github.com/tpayne/CloudRun&dir=samples/DemoApp
