@@ -19,4 +19,4 @@ jobs:
     - name: Test build
       run: |
         echo "Performing a test build on the code..."
-        cd samples && docker build . -f Dockerfile
+        cd samples && docker build . -f Dockerfile && (cd DemoApp && docker build .)
