@@ -35,7 +35,7 @@ samples directly to GCP - assuming you have an account setup to use GCP!
 |[samples/GCESample](samples/GCESample/) | A simple GCE compute sample ||
 |[samples/SimpleSpringApp](samples/SimpleSpringApp/) | A simple SpringApp sample ||
 |[samples/StorageGCSSample](samples/StorageGCSSample/) | A simple GCS storage sample ||
-|[samples/DemoApp](samples/DemoApp/) | A simple Demoapp sample | [<img src="https://storage.|[samples/DemoApp](samples/DemoApp/) | A simple Demoapp sample | [<img src="https://storage.googleapis.com/cloudrun/button.svg" alt="Run on Google Cloud" height="30">][run_button_demoapp] |
+|[samples/StorageGCSSample](samples/DemoApp/) | A simple Demo app | [<img src="https://storage.googleapis.com/cloudrun/button.svg" alt="Run on Google Cloud" height="30">][run_button_demoapp] |
 
 Cloud Functions vrs CloudRun
 ----------------------------
