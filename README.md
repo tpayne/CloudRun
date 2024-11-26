@@ -31,10 +31,11 @@ samples directly to GCP - assuming you have an account setup to use GCP!
 
 |           Sample                |        Description       |     Deploy    |
 | ------------------------------- | ------------------------ | ------------- |
-|[samples/FileSampleApp](samples/FileSampleApp/) | A simple File loading sample | [<img src="https://storage.googleapis.com/cloudrun/button.svg" alt="Run on Google Cloud" height="30">][run_button_filesampleapp] |
-|[samples/GCESample](samples/GCESample/) | A simple GCE compute sample | [<img src="https://storage.googleapis.com/cloudrun/button.svg" alt="Run on Google Cloud" height="30">][run_button_gcesample] |
-|[samples/SimpleSpringApp](samples/SimpleSpringApp/) | A simple SpringApp sample | [<img src="https://storage.googleapis.com/cloudrun/button.svg" alt="Run on Google Cloud" height="30">][run_button_simplespringapp] |
-|[samples/StorageGCSSample](samples/StorageGCSSample/) | A simple GCS storage sample | [<img src="https://storage.googleapis.com/cloudrun/button.svg" alt="Run on Google Cloud" height="30">][run_button_gcssample] |
+|[samples/FileSampleApp](samples/FileSampleApp/) | A simple File loading sample ||
+|[samples/GCESample](samples/GCESample/) | A simple GCE compute sample ||
+|[samples/SimpleSpringApp](samples/SimpleSpringApp/) | A simple SpringApp sample ||
+|[samples/StorageGCSSample](samples/StorageGCSSample/) | A simple GCS storage sample ||
+|[samples/DemoApp](samples/DemoApp/) | A simple Demoapp sample | [<img src="https://storage.|[samples/DemoApp](samples/DemoApp/) | A simple Demoapp sample | [<img src="https://storage.googleapis.com/cloudrun/button.svg" alt="Run on Google Cloud" height="30">][run_button_demoapp] |
 
 Cloud Functions vrs CloudRun
 ----------------------------
@@ -67,7 +68,4 @@ or otherwise about the accuracy or functionality of the examples.
 You use them at your own risk. If anything results to your machine or environment or anything else as a 
 result of ignoring this warning, then the fault is yours only and has nothing to do with me.
 
-[run_button_simplespringapp]: https://deploy.cloud.run/?git_repo=https://github.com/tpayne/CloudRun&dir=samples/SimpleSpringApp
-[run_button_filesampleapp]: https://deploy.cloud.run/?git_repo=https://github.com/tpayne/CloudRun&dir=samples/FileSampleApp
-[run_button_gcssample]: https://deploy.cloud.run/?git_repo=https://github.com/tpayne/CloudRun&dir=samples/StorageGCSSample
-[run_button_gcesample]: https://deploy.cloud.run/?git_repo=https://github.com/tpayne/CloudRun&dir=samples/GCESample
+[run_button_demoapp]: https://deploy.cloud.run/?git_repo=https://github.com/tpayne/CloudRun&dir=samples/DemoApp
