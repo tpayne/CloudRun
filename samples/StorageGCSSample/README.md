@@ -10,13 +10,6 @@ Before you attempt this example, please ensure you have done the following: -
 - That you have installed Maven (mvn) and - optionally - GCP cloud cli (gcloud)
 - You have logged into a (Unix) terminal window that will allow you to do deployments to a valid GCP account
 
-Fully Automated Build/Deploy
-----------------------------
-To do a fully automated build and deploy, press the button below. This will run the process directly on
-GCP - although you will need to answer some questions.
-
-[<img src="https://storage.googleapis.com/cloudrun/button.svg" alt="Run on Google Cloud" height="30">][run_button_auto]
-
 Build Instructions on Local Machine
 -----------------------------------
 To run this sample on your local machine do the following.
@@ -151,5 +144,3 @@ The following references might be of interest...
 - https://googleapis.dev/java/google-cloud-storage/latest/index.html
 - https://cloud.google.com/storage/docs/json_api/v1/
 
-
-[run_button_auto]: https://deploy.cloud.run/?git_repo=https://github.com/tpayne/CloudRun&dir=samples/StorageGCSSample
