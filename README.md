@@ -54,6 +54,7 @@ The following are additional Cloud Run samples and documentation
 - https://github.com/GoogleCloudPlatform/java-docs-samples/tree/master/run
 - https://cloud.google.com/run
 - https://cloud.google.com/run/docs/continuous-deployment-with-cloud-build
+- https://github.com/GoogleCloudPlatform/cloud-run-button
 - https://cloud.google.com/run/docs/tutorials
 - https://cloud.google.com/run/docs/quickstarts
 - https://cloud.google.com/run/docs/how-to
