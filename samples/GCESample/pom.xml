@@ -22,7 +22,7 @@
     <jkube.version>1.1.1</jkube.version>
     <java.level>21</java.level>
     <gcp.projectId>defaultGCPProjectId</gcp.projectId>
-    <project.compute.version>v1-rev20241231-2.0.0</project.compute.version>
+    <project.compute.version>v1-rev20250107-2.0.0</project.compute.version>
   </properties>
 
   <dependencies>
