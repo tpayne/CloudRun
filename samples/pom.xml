@@ -11,7 +11,7 @@
   <packaging>pom</packaging>
 
   <properties>
-    <dependency-check-maven.version>12.0.2</dependency-check-maven.version>
+    <dependency-check-maven.version>12.1.0</dependency-check-maven.version>
   </properties>
     
   <parent>
