@@ -10,7 +10,7 @@ COPY pom.xml .
 
 RUN mvn -q clean package
 
-FROM eclipse-temurin:21.0.6_7-jre-jammy AS runner
+FROM eclipse-temurin:21.0.8_9-jre-jammy AS runner
 
 ARG account=spring
 RUN addgroup ${account} && adduser ${account} --ingroup ${account}
