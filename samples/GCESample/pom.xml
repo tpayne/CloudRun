@@ -31,7 +31,7 @@
     <dependency>
       <groupId>com.google.apis</groupId>
       <artifactId>google-api-services-compute</artifactId>
-      <version>v1-rev20250320-2.0.0</version>
+      <version>v1-rev20251015-2.0.0</version>
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
